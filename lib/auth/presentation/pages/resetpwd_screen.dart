@@ -1,9 +1,11 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:showbook/auth/presentation/widgets/button_widget.dart';
+import 'package:showbook/shared/widgets/button_widget.dart';
 import 'package:showbook/auth/presentation/widgets/header_form_widget.dart';
-import 'package:showbook/auth/presentation/widgets/input_widget.dart';
+import 'package:showbook/shared/widgets/input_widget.dart';
+
+import '../../../shared/utils/app_colors.dart';
 
 @RoutePage()
 class ResetPwdScreen extends StatefulWidget {
@@ -90,7 +92,13 @@ class _ResetPwdScreenState extends State<ResetPwdScreen> {
                     Column(
                       children: [
                         ButtonWidget(
+                          borderColor: AppColors.primary,
+                          bgColor: AppColors.primary,
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
                           text: 'Confirm email',
+                          textColor: AppColors.white,
+                          fontSize: 17,
                           onPressed: () {
                             // context.router.push(route)
                           },

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
@@ -7,12 +6,15 @@ class ButtonWidget extends StatelessWidget {
   final VoidCallback? onPressed;
   final VoidCallback? onTap;
   final Color? bgColor;
-  final Color? borderColor;
+  final Color borderColor;
+  final Color? textColor;
   final bool enable;
   final bool haveTop;
   final bool loading;
   final Color? loadingColor;
   final double height;
+  final double width;
+  final double? fontSize;
   const ButtonWidget({
     Key? key,
     this.child,
@@ -20,13 +22,15 @@ class ButtonWidget extends StatelessWidget {
     this.onPressed,
     this.enable = true,
     this.bgColor,
-    this.borderColor,
+    required this.borderColor,
+    this.textColor,
     this.loading = false,
     this.haveTop = true,
-    this.height = 50.0,
+    required this.height,
+    required this.width,
+    required this.fontSize,
     this.loadingColor,
     this.onTap,
-    
   }) : super(key: key);
 
   @override
@@ -36,10 +40,11 @@ class ButtonWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-            height: 50,
-            width: MediaQuery.of(context).size.width,
+            height: height,
+            width: width,
             decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 240, 42, 7),
+                border: Border.all(color: borderColor),
+                color: bgColor,
                 borderRadius: BorderRadius.circular(8)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -47,9 +52,9 @@ class ButtonWidget extends StatelessWidget {
               children: [
                 Text(
                   text,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    color: Colors.white,
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    color: textColor,
                     fontWeight: FontWeight.w500,
                   ),
                 )

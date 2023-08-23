@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "281656413390",
+    "project_id": "showbook-bdf0a",
+    "storage_bucket": "showbook-bdf0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281656413390:android:099c767f5ddb8e3518549f",
+        "android_client_info": {
+          "package_name": "com.example.showbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281656413390-ok81tgbd9fcf07g36q1fruik1hk6mas6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGXftGro6W3B5QlyTdkRWG3fG0kG0xQEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281656413390-ok81tgbd9fcf07g36q1fruik1hk6mas6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

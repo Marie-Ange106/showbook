@@ -8,7 +8,6 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: LoginRoute.page,
-          initial: true,
         ),
         AutoRoute(
           page: SignupRoute.page,
@@ -18,6 +17,46 @@ class AppRouter extends $AppRouter {
         ),
         AutoRoute(
           page: ResetPwdRoute.page,
+        ),
+        AutoRoute(
+          page: ApplicationRoute.page,
+          initial: true,
+        ),
+        AutoRoute(
+          page: HomeRoute.page,
+        ),
+        AutoRoute(
+          page: DetailEventRoute.page,
+        ),
+        AutoRoute(
+          page: SearchRoute.page,
+        ),
+        AutoRoute(
+          page: MyAccountRoute.page,
+        ),
+        AutoRoute(
+          page: MyEventRoute.page,
+        ),
+        AutoRoute(
+          page: DetailProfilRoute.page,
+        ),
+        AutoRoute(
+          page: PastEventProfilRoute.page,
+        ),
+        AutoRoute(
+          page: Coming.page,
+        ),
+        AutoRoute(
+          page: ProfilListRoute.page,
+        ),
+        AutoRoute(
+          page: EventListRoute.page,
+        ),
+        AutoRoute(
+          page: VerticalMenuRoute.page,
+        ),
+        AutoRoute(
+          page: CategoryListRoute.page,
         ),
       ];
 }

@@ -1,20 +1,24 @@
+import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:showbook/auth/presentation/widgets/button_widget.dart';
+import 'package:showbook/shared/widgets/button_widget.dart';
 import 'package:showbook/auth/presentation/widgets/header_form_widget.dart';
-import 'package:showbook/auth/presentation/widgets/input_widget.dart';
+import 'package:showbook/shared/widgets/input_widget.dart';
+
 import 'package:showbook/shared/routes/routes.gr.dart';
 
+import '../../../shared/utils/app_colors.dart';
+
 @RoutePage()
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   bool _isVisible = true;
   late TextEditingController _emailController;
   late TextEditingController _passwwdController;
@@ -34,7 +38,12 @@ class _SignupScreenState extends State<SignupScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const HeaderFormWidget(text: 'Sign up'),
+              const SizedBox(
+                height: 30,
+              ),
+              const HeaderFormWidget(
+                text: 'Log in',
+              ),
               const SizedBox(
                 height: 30,
               ),
@@ -43,16 +52,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: [
-                    InputWidget(
-                      controller: _emailController,
-                      keyboardType: TextInputType.name,
-                      label: 'Name',
-                      prefixIcon: const Icon(Icons.person),
-                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
                     InputWidget(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -82,31 +81,41 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 15,
-                    ),
-                    InputWidget(
-                      controller: _passwwdController,
-                      keyboardType: TextInputType.visiblePassword,
-                      label: 'Confirm password',
-                      prefixIcon: const Icon(Icons.password),
-                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                      obscureText: _isVisible,
-                      suffixIcon: IconButton(
-                        icon: Icon(_isVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () {
-                          setState(() {
-                            _isVisible = !_isVisible;
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(
                       height: 40,
                     ),
-                    const ButtonWidget(
-                      text: 'Continue',
+                    Column(
+                      children: [
+                        ButtonWidget(
+                          borderColor: AppColors.primary,
+                          bgColor: AppColors.primary,
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          fontSize: 17,
+                          text: 'Continue',
+                          textColor: AppColors.white,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                context.router.push(const ForgotPwdRoute());
+                              },
+                              child: const Text(
+                                'Forgot password?',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  // fontWeight: FontWeight.w900,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 100,
@@ -117,14 +126,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         RichText(
                           text: TextSpan(children: <TextSpan>[
                             const TextSpan(
-                              text: 'Already an account?',
+                              text: 'Not an account?',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
                               ),
                             ),
                             TextSpan(
-                              text: 'Sign in!',
+                              text: 'Sign up!',
                               style: const TextStyle(
                                 color: Colors.red,
                                 fontWeight: FontWeight.w900,
@@ -132,7 +141,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  context.router.push(const LoginRoute());
+                                  context.router.push(const SignupRoute());
                                 },
                             ),
                           ]),
