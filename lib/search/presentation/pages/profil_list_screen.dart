@@ -20,7 +20,7 @@ class _ProfilListScreenState extends State<ProfilListScreen> {
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
         child: BlocBuilder<ProfilCubit, ProfilState>(
-          bloc: getIt.get<ProfilCubit>()..getProfil(),
+          bloc: getIt.get<ProfilCubit>(),
           builder: (context, state) {
             if (state.isLooadingProfil) {
               return const Center(

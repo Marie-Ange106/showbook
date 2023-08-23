@@ -21,7 +21,7 @@ class _EventListScreenState extends State<EventListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<EventCubit, EventState>(
-        bloc: getIt.get<EventCubit>()..getEvent(),
+        bloc: getIt.get<EventCubit>(),
         builder: (context, state) {
           if (state.isLoadingEvent) {
             return SingleChildScrollView(
@@ -91,7 +91,7 @@ class _EventListScreenState extends State<EventListScreen> {
             );
           }
 
-          if (state.events!.isEmpty) {
+          if (state.events?.isEmpty ?? true) {
             return const Center(
               child: Text(
                 'No events found',

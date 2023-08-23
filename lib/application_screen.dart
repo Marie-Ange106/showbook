@@ -2,11 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:showbook/home/business_logic/cubit/event_cubit.dart';
+import 'package:showbook/home/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/home/presentation/pages/home_screen.dart';
 import 'package:showbook/account/pages/my_account_screen.dart';
+import 'package:showbook/service_locator.dart';
 import 'package:showbook/user_event/my_event.dart';
 import 'package:showbook/search/presentation/pages/search_screen.dart';
-
 
 @RoutePage()
 class ApplicationScreen extends StatefulWidget {
@@ -33,6 +35,7 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.home),
+
         // title: ("Home"),
         activeColorPrimary: CupertinoColors.systemRed,
         inactiveColorPrimary: CupertinoColors.black,
@@ -40,6 +43,11 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.search),
         // title: ("Home"),
+        onPressed: (_) {
+          _controller.index = 1;
+          getIt.get<EventCubit>().getEvent();
+          getIt.get<ProfilCubit>().getProfil();
+        },
         activeColorPrimary: CupertinoColors.systemRed,
         inactiveColorPrimary: CupertinoColors.black,
       ),
@@ -64,7 +72,7 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
     _controller = PersistentTabController();
     if (ApplicationScreen.indexSearch == 1) {
       _controller.index = ApplicationScreen.indexSearch;
-    } 
+    }
     // else if (_controller.index != 1) {
     //   getIt.get<EventCubit>().getEvent();
     // }

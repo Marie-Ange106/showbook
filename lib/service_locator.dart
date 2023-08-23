@@ -12,11 +12,9 @@ final getIt = GetIt.instance;
 
 void setupLocator() {
   getIt.registerSingleton<Dio>(
-    Dio(
-      BaseOptions(
-        baseUrl:'http://192.168.149.229:8000', 
-      )
-    ),
+    Dio(BaseOptions(
+      baseUrl: 'http://192.168.149.229:8000',
+    )),
   );
 
   getIt.registerSingleton<EventRepository>(
@@ -28,7 +26,7 @@ void setupLocator() {
   getIt.registerSingleton<EventCubit>(
     EventCubit(
       eventRepository: getIt.get<EventRepository>(),
-    ),
+    )..getEvent(),
   );
 
   getIt.registerSingleton<CategoryRepository>(
@@ -40,7 +38,7 @@ void setupLocator() {
   getIt.registerSingleton<CategoryCubit>(
     CategoryCubit(
       categoryRepository: getIt.get<CategoryRepository>(),
-    ),
+    )..getCategory(),
   );
 
   getIt.registerSingleton<ProfilRepository>(
@@ -52,6 +50,6 @@ void setupLocator() {
   getIt.registerSingleton<ProfilCubit>(
     ProfilCubit(
       profilRepository: getIt.get<ProfilRepository>(),
-    ),
+    )..getProfil(),
   );
 }

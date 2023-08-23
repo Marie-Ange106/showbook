@@ -34,10 +34,19 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
     super.initState();
   }
 
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   void urlLauncher(String url) async {
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
-      launchUrl(uri);
+      await launchUrl(uri);
     } else {
       throw 'Impossible d\'ouvrir l\'URL $url';
     }
@@ -380,8 +389,11 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  urlLauncher(widget.profil.instagram!);
+                                onTap: () async {
+                                  //urlLauncher(widget.profil.instagram!);
+                                  await _launchInBrowser(
+                                    Uri.parse(widget.profil.instagram!),
+                                  );
                                 },
                                 child: const Image(
                                   image: AssetImage(
@@ -391,8 +403,11 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  urlLauncher(widget.profil.facebook!);
+                                onTap: () async {
+                                  //urlLauncher(widget.profil.facebook!);
+                                  await _launchInBrowser(
+                                    Uri.parse(widget.profil.facebook!),
+                                  );
                                 },
                                 child: const Image(
                                   image:
@@ -402,8 +417,11 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  urlLauncher(widget.profil.twitter!);
+                                onTap: () async {
+                                  //urlLauncher(widget.profil.twitter!);
+                                  await _launchInBrowser(
+                                    Uri.parse(widget.profil.twitter!),
+                                  );
                                 },
                                 child: const Image(
                                   image:

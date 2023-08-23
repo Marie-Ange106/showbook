@@ -53,10 +53,20 @@ class ProfilModel {
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
       follower: json['users_count'],
-      // eventsInvited: List<EventModel>.from(
-      //     json['events_invited'].map((event) => EventModel.fromJson(event))),
-      // eventsOrganized: List<EventModel>.from(
-      //     json['events_organized'].map((event) => EventModel.fromJson(event))),
+      eventsInvited: json['events_invited'] != null
+          ? List<EventModel>.from(
+              json['events_invited'].map(
+                (event) => EventModel.fromJson(event),
+              ),
+            )
+          : null,
+      eventsOrganized: json['events_organized'] != null
+          ? List<EventModel>.from(
+              json['events_organized'].map(
+                (event) => EventModel.fromJson(event),
+              ),
+            )
+          : null,
     );
   }
 }
