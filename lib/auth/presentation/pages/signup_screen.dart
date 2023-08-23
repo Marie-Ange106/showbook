@@ -29,6 +29,13 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwwdController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -125,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         RichText(
                           text: TextSpan(children: <TextSpan>[
                             const TextSpan(
-                              text: 'Already an account?',
+                              text: 'Already have an account?',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
