@@ -36,6 +36,7 @@ class ProfilCubit extends Cubit<ProfilState> {
         location: location,
         price: price,
         type: type,
+        keyword: keyword,
       );
       emit(
         state.copyWith(

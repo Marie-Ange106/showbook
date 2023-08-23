@@ -66,95 +66,96 @@ class _FilterScreenState extends State<FilterScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // categories*********************
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.category,
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      height: isExpanded ? 250 : 100,
-                      width: 320,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  ],
+                ),
+                SizedBox(
+                  height: isExpanded ? 250 : 100,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SizedBox(
-                            width: 330,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 15),
-                                  child: Text(
-                                    'Category',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          SingleChildScrollView(
-                            child: BlocBuilder<CategoryCubit, CategoryState>(
-                              bloc: getIt.get<CategoryCubit>()..getCategory(),
-                              builder: (context, state) {
-                                var categories = state.categories;
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ExpansionTile(
-                                      title: Text(selectedCategory),
-                                      initiallyExpanded: isExpanded,
-                                      onExpansionChanged: (value) {
-                                        setState(() {
-                                          isExpanded = value;
-                                        });
-                                      },
-                                      children: [
-                                        SizedBox(
-                                          height: isExpanded ? 150 : 125,
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: state.categories!.length,
-                                            itemBuilder: (context, index) {
-                                              var category = categories![index];
-                                              return ListTile(
-                                                title: Text(category.name),
-                                                onTap: () {
-                                                  setState(() {
-                                                    selectedCategory =
-                                                        category.name;
-                                                    // isExpanded = false;
-                                                  });
-                                                  // widget.onFilterSelected(
-                                                  //     selectedCategory, selectedDate);
-                                                },
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                );
-                              },
+                          Padding(
+                            padding: EdgeInsets.only(left: 15),
+                            child: Text(
+                              'Category',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SingleChildScrollView(
+                        child: BlocBuilder<CategoryCubit, CategoryState>(
+                          bloc: (getIt
+                                      .get<CategoryCubit>()
+                                      .state
+                                      .categories
+                                      ?.isEmpty ??
+                                  true)
+                              ? getIt.get<CategoryCubit>().getCategory()
+                              : getIt.get<CategoryCubit>(),
+                          builder: (context, state) {
+                            var categories = state.categories;
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ExpansionTile(
+                                  title: Text(selectedCategory),
+                                  initiallyExpanded: isExpanded,
+                                  onExpansionChanged: (value) {
+                                    setState(() {
+                                      isExpanded = value;
+                                    });
+                                  },
+                                  children: [
+                                    SizedBox(
+                                      height: isExpanded ? 150 : 125,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: state.categories!.length,
+                                        itemBuilder: (context, index) {
+                                          var category = categories![index];
+                                          return ListTile(
+                                            title: Text(category.name),
+                                            onTap: () {
+                                              setState(() {
+                                                selectedCategory =
+                                                    category.name;
+                                                // isExpanded = false;
+                                              });
+                                              // widget.onFilterSelected(
+                                              //     selectedCategory, selectedDate);
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
