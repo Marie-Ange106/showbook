@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:showbook/home/business_logic/cubit/category_cubit.dart';
-import 'package:showbook/service_locator.dart';
+import 'package:showbook/category/business_logic/cubit/category_cubit.dart';
+
+
+import '../../../service_locator.dart';
 
 class CategoriesListFilter extends StatefulWidget {
   final Function(String) onCategorySelected;
@@ -22,7 +24,7 @@ class _CategoriesListFilterState extends State<CategoriesListFilter> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Category'),
+        const Text('Category'),
         BlocBuilder<CategoryCubit, CategoryState>(
           bloc: getIt.get<CategoryCubit>()..getCategory(),
           builder: (context, state) {

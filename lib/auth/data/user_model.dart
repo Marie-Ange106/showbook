@@ -20,7 +20,9 @@ class UserModel {
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      emailVerifiedAt: DateTime.parse(json['email_verified_at']),
+      emailVerifiedAt: json['email_verified_at'] != null
+          ? DateTime.parse(json['email_verified_at'])
+          : null,
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
     );

@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:showbook/home/business_logic/cubit/category_cubit.dart';
 import 'package:showbook/search/presentation/pages/search_screen.dart';
-import 'package:showbook/service_locator.dart';
-import 'package:showbook/shared/utils/app_colors.dart';
-import 'package:showbook/shared/widgets/button_widget.dart';
 
 import '../../../application_screen.dart';
-import '../../../home/business_logic/cubit/event_cubit.dart';
+import '../../../category/business_logic/cubit/category_cubit.dart';
+import '../../../event/business_logic/cubit/event_cubit.dart';
+import '../../../service_locator.dart';
 import '../../../shared/routes/routes.gr.dart';
+import '../../../shared/utils/app_colors.dart';
+import '../../../shared/widgets/button_widget.dart';
 import '../widgets/item_filter_widget.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -33,7 +33,7 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: isExpanded ? 650 : 500,
+      height: isExpanded ? 700 : 550,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -66,15 +66,15 @@ class _FilterScreenState extends State<FilterScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // categories*********************
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.category,
-                    ),
-                  ],
-                ),
+                // const Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Icon(
+                //       Icons.category,
+                //     ),
+                //   ],
+                // ),
                 SizedBox(
                   height: isExpanded ? 250 : 100,
                   width: MediaQuery.of(context).size.width,
@@ -165,11 +165,11 @@ class _FilterScreenState extends State<FilterScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(
-                      Icons.calendar_today,
-                    ),
+                    // const Icon(
+                    //   Icons.calendar_today,
+                    // ),
                     const SizedBox(
-                      width: 40,
+                      width: 20,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -224,8 +224,9 @@ class _FilterScreenState extends State<FilterScreen> {
                   height: 30,
                 ),
                 // price *********************
+                
                 ItemFilterWidget(
-                  icon: Icons.price_change,
+                  // icon: Icons.price_change,
                   title: 'Price',
                   value: '',
                 ),

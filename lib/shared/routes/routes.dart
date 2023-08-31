@@ -20,7 +20,6 @@ class AppRouter extends $AppRouter {
         ),
         AutoRoute(
           page: ApplicationRoute.page,
-          initial: true,
         ),
         AutoRoute(
           page: HomeRoute.page,
@@ -46,9 +45,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: Coming.page,
         ),
-        AutoRoute(
-          page: ProfilListRoute.page,
-        ),
+        AutoRoute(page: DetailProfilRoute.page),
         AutoRoute(
           page: EventListRoute.page,
         ),
@@ -58,5 +55,9 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: CategoryListRoute.page,
         ),
+        AutoRoute(
+          page: SplashRoute.page,
+          initial: true,
+        )
       ];
 }

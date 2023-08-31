@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:showbook/home/business_logic/cubit/profil_cubit.dart';
-import 'package:showbook/service_locator.dart';
-import 'package:showbook/shared/routes/routes.gr.dart';
-import 'package:showbook/shared/widgets/profil_item_widget.dart';
+
+import '../../../profil/business_logic/cubit/profil_cubit.dart';
+import '../../../service_locator.dart';
+import '../../../shared/routes/routes.gr.dart';
+import '../../../profil/presentation/widgets/profil_item_widget.dart';
 
 class ProfilListScreen extends StatefulWidget {
   const ProfilListScreen({super.key});
@@ -51,7 +52,7 @@ class _ProfilListScreenState extends State<ProfilListScreen> {
                     },
                     child: ProfilWidget(
                       imagePath:
-                          'http://192.168.149.229:8000/storage/${profil.imagePath}',
+                          'http://192.168.100.140:8000/storage/${profil.imagePath}',
                       typeProfil: 'type',
                       profilName: profil.name,
                       follower: '${profil.follower.toString()} Followers',

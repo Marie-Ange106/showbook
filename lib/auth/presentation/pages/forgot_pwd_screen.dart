@@ -74,17 +74,19 @@ class _ForgotPwdScreenState extends State<ForgotPwdScreen> {
                     ),
                     Column(
                       children: [
-                        ButtonWidget(
-                          borderColor: AppColors.primary,
-                          bgColor: AppColors.primary,
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          text: 'Confirm email',
-                          textColor: AppColors.white,
-                          fontSize: 17,
+                        GestureDetector(
                           onTap: () {
                             context.router.push(const ResetPwdRoute());
                           },
+                          child: ButtonWidget(
+                            borderColor: AppColors.primary,
+                            bgColor: AppColors.primary,
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            text: 'Confirm email',
+                            textColor: AppColors.white,
+                            fontSize: 17,
+                          ),
                         ),
                       ],
                     ),

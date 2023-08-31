@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:showbook/home/business_logic/cubit/event_cubit.dart';
-import 'package:showbook/home/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/search/presentation/pages/event_list_screen.dart';
-import 'package:showbook/search/presentation/pages/filter_screen.dart';
 import 'package:showbook/search/presentation/pages/profil_list_screen.dart';
-import 'package:showbook/service_locator.dart';
+import '../../../event/business_logic/cubit/event_cubit.dart';
+import '../../../profil/business_logic/cubit/profil_cubit.dart';
+import '../../../service_locator.dart';
 import '../../../shared/utils/app_colors.dart';
+import 'filter_screen.dart';
 
 @RoutePage()
 class SearchScreen extends StatefulWidget {
@@ -91,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen>
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                     ),
-                    onChanged: (value) {
+                    onFieldSubmitted: (value) {
                       getIt.get<EventCubit>().getEvent(
                             keyword: value,
                           );

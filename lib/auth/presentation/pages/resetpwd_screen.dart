@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:showbook/shared/routes/routes.gr.dart';
 import 'package:showbook/shared/widgets/button_widget.dart';
 import 'package:showbook/auth/presentation/widgets/header_form_widget.dart';
 import 'package:showbook/shared/widgets/input_widget.dart';
@@ -48,7 +49,7 @@ class _ResetPwdScreenState extends State<ResetPwdScreen> {
                       controller: _passwwdController,
                       keyboardType: TextInputType.visiblePassword,
                       label: 'Password',
-                      prefixIcon: const Icon(Icons.password),
+                      prefixIcon: const Icon(Icons.lock),
                       contentPadding: const EdgeInsets.symmetric(vertical: 15),
                       obscureText: _isVisible,
                       suffixIcon: IconButton(
@@ -69,7 +70,7 @@ class _ResetPwdScreenState extends State<ResetPwdScreen> {
                       controller: _passwwdController,
                       keyboardType: TextInputType.visiblePassword,
                       label: 'Confirm password',
-                      prefixIcon: const Icon(Icons.password),
+                      prefixIcon: const Icon(Icons.lock),
                       contentPadding: const EdgeInsets.symmetric(vertical: 15),
                       obscureText: _isVisible,
                       suffixIcon: IconButton(
@@ -91,17 +92,22 @@ class _ResetPwdScreenState extends State<ResetPwdScreen> {
                     ),
                     Column(
                       children: [
-                        ButtonWidget(
-                          borderColor: AppColors.primary,
-                          bgColor: AppColors.primary,
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          text: 'Confirm email',
-                          textColor: AppColors.white,
-                          fontSize: 17,
-                          onPressed: () {
-                            // context.router.push(route)
+                        GestureDetector(
+                          onTap: () {
+                            context.router.push(const LoginRoute());
                           },
+                          child: ButtonWidget(
+                            borderColor: AppColors.primary,
+                            bgColor: AppColors.primary,
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            text: 'Confirm email',
+                            textColor: AppColors.white,
+                            fontSize: 17,
+                            onPressed: () {
+                              // context.router.push(route)
+                            },
+                          ),
                         ),
                       ],
                     ),

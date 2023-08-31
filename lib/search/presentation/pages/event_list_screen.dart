@@ -2,11 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:showbook/shared/routes/routes.gr.dart';
 
-import '../../../home/business_logic/cubit/event_cubit.dart';
+import '../../../event/business_logic/cubit/event_cubit.dart';
 import '../../../service_locator.dart';
-import '../../../shared/widgets/event_item_widget.dart';
+import '../../../shared/routes/routes.gr.dart';
+import '../../../event/presentation/widgets/event_item_widget.dart';
+import '../../../category/presentation/widgets/category_item_widget.dart';
 
 @RoutePage()
 class EventListScreen extends StatefulWidget {
@@ -92,14 +93,24 @@ class _EventListScreenState extends State<EventListScreen> {
           }
 
           if (state.events?.isEmpty ?? true) {
-            return const Center(
-              child: Text(
-                'No events found',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+            return Center(
+              child: CategoryItemWidget.categoryName == ''
+                  ? const Text(
+                      'No events found for this search',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                  : Text(
+                      'No events found for ${CategoryItemWidget.categoryName} category',
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
             );
           }
 
@@ -120,7 +131,7 @@ class _EventListScreenState extends State<EventListScreen> {
                     },
                     child: EventItemWidget(
                       path:
-                          'http://192.168.149.229:8000/storage/${event.pathImage}',
+                          'http://192.168.100.140:8000/storage/${event.pathImage}',
                       category: event.categories.first.name,
                       title: event.title,
                       description: event.description,

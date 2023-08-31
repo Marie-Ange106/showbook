@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ItemFilterWidget extends StatelessWidget {
-  IconData icon;
+  IconData? icon;
   String title;
   String value;
   ItemFilterWidget({
-    required this.icon,
+    this.icon,
     required this.title,
     required this.value,
     super.key,
@@ -18,7 +18,6 @@ class ItemFilterWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon),
         const SizedBox(
           width: 20,
         ),

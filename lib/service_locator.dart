@@ -1,19 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:showbook/home/business_logic/cubit/category_cubit.dart';
-import 'package:showbook/home/business_logic/cubit/event_cubit.dart';
-import 'package:showbook/home/business_logic/cubit/profil_cubit.dart';
-import 'package:showbook/home/data/repositories/category_repository.dart';
-import 'package:showbook/home/data/repositories/profil_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home/data/repositories/event_repository.dart';
+import 'auth/business_logic/cubit/auth_cubit.dart';
+import 'auth/data/auth_repository.dart';
+import 'category/business_logic/cubit/category_cubit.dart';
+import 'category/data/repositories/category_repository.dart';
+import 'event/business_logic/cubit/event_cubit.dart';
+import 'event/data/repositories/event_repository.dart';
+import 'profil/business_logic/cubit/profil_cubit.dart';
+import 'profil/data/repositories/profil_repository.dart';
 
 final getIt = GetIt.instance;
 
 void setupLocator() {
+  getIt.registerLazySingletonAsync(
+    () => SharedPreferences.getInstance(),
+  );
+
   getIt.registerSingleton<Dio>(
     Dio(BaseOptions(
-      baseUrl: 'http://192.168.149.229:8000',
+      baseUrl: 'http://192.168.100.140:8000',
     )),
   );
 
@@ -51,5 +58,17 @@ void setupLocator() {
     ProfilCubit(
       profilRepository: getIt.get<ProfilRepository>(),
     )..getProfil(),
+  );
+
+  getIt.registerSingleton<AuthRepository>(
+    AuthRepository(
+      dio: getIt.get<Dio>(),
+    ),
+  );
+
+  getIt.registerSingleton<AuthCubit>(
+    AuthCubit(
+      authRepository: getIt.get<AuthRepository>(),
+    ),
   );
 }

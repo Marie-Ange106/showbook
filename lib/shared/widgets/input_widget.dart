@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class InputWidget extends StatefulWidget {
   final TextEditingController? controller;
@@ -75,7 +76,7 @@ class _InputWidgetState extends State<InputWidget> {
           keyboardType: widget.keyboardType,
           obscureText: widget.obscureText,
           readOnly: widget.readOnly,
-          // validator: FormBuilderValidators.compose(widget.validators),
+          validator: FormBuilderValidators.compose(widget.validators),
           showCursor: widget.showCursor,
           textInputAction: widget.textInputAction,
           decoration: InputDecoration(
