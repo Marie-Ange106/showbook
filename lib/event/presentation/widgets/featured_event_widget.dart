@@ -50,7 +50,7 @@ class FeaturedEventWidget extends StatelessWidget {
                       Stack(
                         children: [
                           Container(
-                            height: 165,
+                            height: 165, 
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10)),

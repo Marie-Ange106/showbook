@@ -1,6 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
+import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
+import 'package:showbook/service_locator.dart';
 import 'package:showbook/shared/routes/routes.gr.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
 
@@ -16,8 +20,9 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
+    getIt.get<LocationCubit>().getLocation();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 4), () {
       context.router.pushAndPopUntil(
         const ApplicationRoute(),
         predicate: (_) => false,
@@ -37,34 +42,43 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.white,
-              // AppColors.primaryClair,
-              AppColors.primary,
-            ],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
-        ),
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image(
-              image: AssetImage(
-                'assets/images/logo-showbook.png',
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state.sucessTcheckUser) {
+          getIt.get<AuthCubit>().getUser();
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.white,
+                  // AppColors.primaryClair,
+                  AppColors.primary,
+                ],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
               ),
-              height: 250,
-              width: 250,
             ),
-          ],
-        ),
-      ),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image(
+                  image: AssetImage(
+                    'assets/images/logo-showbook.png',
+                  ),
+                  height: 250,
+                  width: 250,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showbook/event/data/models/event_model.dart';
+
+import '../models/like_moddel.dart';
 
 class EventRepository {
   final Dio dio;
@@ -33,4 +36,26 @@ class EventRepository {
     }
     return events;
   }
+
+  Future<LikeModel> likedEvent({required int eventId}) async {
+    var prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    Response response = await dio.post(
+      '/api/showbook/event/$eventId/like',
+      options: Options(headers: {
+        'Authorization': 'Bearer $token',
+      }),
+    );
+    var data = response.data["like"];
+    // print(data);
+    return LikeModel.fromJson(data);
+  }
+
+  // Future<List<LikeModel>> getAllEventLikedByUser(){
+  //   List<LikeModel> likes = [];
+    
+  //     likes.add(LikeModel.fromJson(event));
+  //   return likes;
+    
+  // }
 }

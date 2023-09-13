@@ -34,9 +34,6 @@ class AppRouter extends $AppRouter {
           page: MyAccountRoute.page,
         ),
         AutoRoute(
-          page: MyEventRoute.page,
-        ),
-        AutoRoute(
           page: DetailProfilRoute.page,
         ),
         AutoRoute(
@@ -58,6 +55,15 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: SplashRoute.page,
           initial: true,
-        )
+        ),
+        AutoRoute(
+          page: SucessRegisterRoute.page,
+        ),
+        AutoRoute(
+          page: SettingsRoute.page,
+        ),
+        AutoRoute(
+          page: AddEventRoute.page,
+        ),
       ];
 }

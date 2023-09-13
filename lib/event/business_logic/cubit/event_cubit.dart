@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:showbook/event/data/models/event_model.dart';
 import 'package:showbook/event/data/repositories/event_repository.dart';
 
+import '../../data/models/like_moddel.dart';
+
 part 'event_state.dart';
 
 class EventCubit extends Cubit<EventState> {
@@ -25,28 +27,51 @@ class EventCubit extends Cubit<EventState> {
         errorLoadingEvent: false,
       ));
       var events = await eventRepository.getEvent(
-        category:category,
-        date:date,
-        location:location,
-        keyword:keyword,
-        price:price,
+        category: category,
+        date: date,
+        location: location,
+        keyword: keyword,
+        price: price,
       );
       // print(events);
-      emit(state.copyWith(
-        events: events,
-        isLoadingEvent: false,
-        sucessLoadingEvent: true,
-        errorLoadingEvent: false,
-      ));
+      emit(
+        state.copyWith(
+          events: events,
+          isLoadingEvent: false,
+          sucessLoadingEvent: true,
+          errorLoadingEvent: false,
+        ),
+      );
     } catch (e) {
       // print(e);
 
-      emit(state.copyWith(
-        isLoadingEvent: false,
-        sucessLoadingEvent: false,
-        errorLoadingEvent: true,
-        message: e.toString(),
-      ));
+      emit(
+        state.copyWith(
+          isLoadingEvent: false,
+          sucessLoadingEvent: false,
+          errorLoadingEvent: true,
+          message: e.toString(),
+        ),
+      );
     }
+  }
+
+  likeEvent({required int id}) async {
+    try {
+      var like = await eventRepository.likedEvent(eventId: id);
+      emit(
+        state.copyWith(
+          like: like,
+          isLikedEvent: false,
+          isUnlikedEvent: true,
+        ),
+      );
+      emit(
+        state.copyWith(
+          isLikedEvent: true,
+          isUnlikedEvent: false,
+        ),
+      );
+    } catch (e) {}
   }
 }

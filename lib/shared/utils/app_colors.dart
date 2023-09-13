@@ -4,7 +4,7 @@ class AppColors {
   static const primary = Colors.red;
   static const secondary = Color.fromARGB(255, 0, 0, 0);
   static const tertiary = Color.fromARGB(255, 112, 112, 112);
-  static const primaryClair = Color.fromARGB(255, 249, 218, 197);
+  static const primaryClair = Color.fromARGB(255, 247, 213, 213);
   static const white = Colors.white;
 
   static const Color errorColor = Color(0xffED1A34);

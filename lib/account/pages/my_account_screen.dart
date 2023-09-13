@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:showbook/account/pages/followed_list_screen.dart';
 import 'package:showbook/account/pages/notification_list_screen.dart';
 import 'package:showbook/account/pages/ticket_list_screen.dart';
+import 'package:showbook/shared/routes/routes.gr.dart';
+import 'package:showbook/shared/widgets/vertical_menu.dart';
 
-import '../../shared/routes/routes.gr.dart';
 import '../../shared/utils/app_colors.dart';
 
 @RoutePage()
@@ -29,22 +30,21 @@ class _MyAccountScreenState extends State<MyAccountScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.menu,
-          ),
-          onPressed: () {
-            context.router.push(const VerticalMenuRoute());
-          },
-        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              icon: const Icon(
-                Icons.settings,
+            child: GestureDetector(
+              onTap: () {
+                context.router.push(const SettingsRoute());
+              },
+              child: IconButton(
+                icon: const Icon(
+                  Icons.settings,
+                ),
+                onPressed: () {
+                  context.router.push(const SettingsRoute());
+                },
               ),
-              onPressed: () {},
             ),
           ),
         ],
@@ -83,6 +83,7 @@ class _MyAccountScreenState extends State<MyAccountScreen>
           ],
         ),
       ),
+      drawer: const VerticalMenuScreen(),
       body: TabBarView(
         controller: _tabController,
         children: const [
@@ -92,6 +93,5 @@ class _MyAccountScreenState extends State<MyAccountScreen>
         ],
       ),
     );
-    
   }
 }

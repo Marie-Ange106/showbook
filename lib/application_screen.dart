@@ -7,7 +7,7 @@ import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/shared/pages/home_screen.dart';
 import 'package:showbook/account/pages/my_account_screen.dart';
 import 'package:showbook/service_locator.dart';
-import 'package:showbook/user_event/presentation/pages/my_event.dart';
+import 'package:showbook/favorite_event/presentation/pages/favorite_event_screen.dart';
 import 'package:showbook/search/presentation/pages/search_screen.dart';
 
 @RoutePage()
@@ -27,7 +27,7 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
     return [
       const HomeScreen(),
       const SearchScreen(),
-      const MyEventScreen(),
+      const FavoriteEVentScreen(),
       const MyAccountScreen(),
     ];
   }

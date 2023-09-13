@@ -53,19 +53,22 @@ class EventItemWidget extends StatelessWidget {
             Stack(
               alignment: AlignmentDirectional.topEnd,
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: 122,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadiusDirectional.circular(10),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Image(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(path),
+                Hero(
+                  tag: 'event-image-$path',
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: 122,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadiusDirectional.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(path),
+                        ),
                       ),
                     ),
                   ),

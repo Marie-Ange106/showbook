@@ -64,6 +64,7 @@ class AuthRepository {
   Future<UserModel> getUser() async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
+    print(token);
     Response response = await dio.post(
       '/api/showbook/me',
       options: Options(
@@ -72,6 +73,7 @@ class AuthRepository {
         },
       ),
     );
-    return UserModel.fromJson(response.data);
+    print(response.data);
+    return UserModel.fromJson(response.data['user']);
   }
 }

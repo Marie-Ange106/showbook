@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:showbook/category/business_logic/cubit/category_cubit.dart';
+import 'package:showbook/comment/business_logic/cubit/comment_cubit.dart';
 import 'package:showbook/event/business_logic/cubit/event_cubit.dart';
+import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
 import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/service_locator.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
@@ -32,7 +34,13 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt.get<ProfilCubit>()..getProfil(),
         ),
         BlocProvider<AuthCubit>(
-          create: (context) => getIt.get<AuthCubit>(),
+          create: (context) => getIt.get<AuthCubit>()..getUser(),
+        ),
+        BlocProvider<LocationCubit>(
+          create: (context) => getIt.get<LocationCubit>()..getLocation(),
+        ),
+        BlocProvider<CommentCubit>(
+          create: (context) => getIt.get<CommentCubit>(),
         ),
       ],
       child: MaterialApp.router(

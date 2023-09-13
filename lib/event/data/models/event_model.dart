@@ -1,5 +1,5 @@
 import 'package:showbook/category/data/models/category_model.dart';
-import 'package:showbook/event/data/models/location_model.dart';
+import 'package:showbook/location/data/location_model.dart';
 import 'package:showbook/profil/data/models/profil_model.dart';
 
 class EventModel {

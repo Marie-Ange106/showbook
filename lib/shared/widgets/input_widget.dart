@@ -15,6 +15,8 @@ class InputWidget extends StatefulWidget {
   final bool? showCursor;
   final bool? required;
   final EdgeInsetsGeometry? contentPadding;
+  final int? maxLines;
+  final String? placeholder;
 
   const InputWidget({
     super.key,
@@ -31,6 +33,8 @@ class InputWidget extends StatefulWidget {
     this.readOnly = false,
     this.validators = const [],
     this.contentPadding,
+    this.maxLines,
+    this.placeholder,
   });
 
   @override
@@ -54,7 +58,7 @@ class _InputWidgetState extends State<InputWidget> {
                 child: Text(
                   "${widget.label}",
                   style: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 16,
                     // fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -72,6 +76,7 @@ class _InputWidgetState extends State<InputWidget> {
           height: 5,
         ),
         TextFormField(
+          maxLines: widget.maxLines,
           controller: widget.controller,
           keyboardType: widget.keyboardType,
           obscureText: widget.obscureText,
@@ -80,6 +85,7 @@ class _InputWidgetState extends State<InputWidget> {
           showCursor: widget.showCursor,
           textInputAction: widget.textInputAction,
           decoration: InputDecoration(
+            labelText: widget.placeholder,
             contentPadding: widget.contentPadding,
             label: widget.labelDecoration,
             suffixIcon: widget.suffixIcon,

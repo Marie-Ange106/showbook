@@ -15,6 +15,7 @@ class ButtonWidget extends StatelessWidget {
   final double height;
   final double width;
   final double? fontSize;
+  final Icon? icon;
   const ButtonWidget({
     Key? key,
     this.child,
@@ -31,6 +32,7 @@ class ButtonWidget extends StatelessWidget {
     required this.fontSize,
     this.loadingColor,
     this.onTap,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -56,8 +58,9 @@ class ButtonWidget extends StatelessWidget {
                     fontSize: fontSize,
                     color: textColor,
                     fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none,
                   ),
-                )
+                ),
               ],
             ))
       ],

@@ -24,7 +24,7 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryCubit, CategoryState>(
-      bloc: getIt.get<CategoryCubit>(),
+      bloc: getIt.get<CategoryCubit>(), 
       builder: (context, state) {
         if (state.isLoadingCategory) {
           return Shimmer.fromColors(

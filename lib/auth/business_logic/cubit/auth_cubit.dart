@@ -16,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
   }) async {
     try {
-      emit(
+      emit( 
         state.copyWith(
           isLoginging: true,
           sucessLoginging: false,
@@ -85,13 +85,13 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-
   getUser() async {
     try {
       emit(
         state.copyWith(
-          sucessTcheckUser: false,
           failureTcheckUser: true,
+          sucessTcheckUser: false,
+          errorTcheckUser: true,
         ),
       );
       var user = await authRepository.getUser();
@@ -100,10 +100,19 @@ class AuthCubit extends Cubit<AuthState> {
           user: user,
           sucessTcheckUser: true,
           failureTcheckUser: false,
+          errorTcheckUser: true,
         ),
       );
+      print(user);
     } catch (e) {
-      
+      emit(
+        state.copyWith(
+          sucessTcheckUser: false,
+          failureTcheckUser: false,
+          errorTcheckUser: true,
+        ),
+      );
+      print(e.toString());
     }
   }
 }

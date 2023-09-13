@@ -15,6 +15,7 @@ class AuthState {
   // 
   final bool sucessTcheckUser;
   final bool failureTcheckUser;
+  final bool errorTcheckUser;
 
   const AuthState({
     this.user,
@@ -30,6 +31,7 @@ class AuthState {
     // 
     this.sucessTcheckUser = false,
     this.failureTcheckUser = false,
+    this.errorTcheckUser = false,
   });
 
   AuthState copyWith({
@@ -46,6 +48,7 @@ class AuthState {
     // 
     bool? sucessTcheckUser,
     bool? failureTcheckUser,
+    bool? errorTcheckUser,
   }) {
     return AuthState(
       user: user ?? this.user,
@@ -61,6 +64,7 @@ class AuthState {
       // 
       sucessTcheckUser: sucessTcheckUser ?? this.sucessTcheckUser,
       failureTcheckUser: failureTcheckUser ?? this.failureTcheckUser,
+      errorTcheckUser:  errorTcheckUser ?? this.errorTcheckUser,
     );
   }
 }

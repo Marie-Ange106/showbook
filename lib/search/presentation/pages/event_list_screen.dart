@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../comment/business_logic/cubit/comment_cubit.dart';
 import '../../../event/business_logic/cubit/event_cubit.dart';
 import '../../../service_locator.dart';
 import '../../../shared/routes/routes.gr.dart';
@@ -122,22 +123,20 @@ class _EventListScreenState extends State<EventListScreen> {
             child: ListView.builder(
               itemBuilder: (context, index) {
                 var event = events[index];
+               
 
-                return Hero(
-                  tag: event,
-                  child: GestureDetector(
-                    onTap: () {
-                      context.router.push(DetailEventRoute(event: event));
-                    },
-                    child: EventItemWidget(
-                      path:
-                          'http://192.168.100.140:8000/storage/${event.pathImage}',
-                      category: event.categories.first.name,
-                      title: event.title,
-                      description: event.description,
-                      location: event.location.name,
-                      date: event.startDate,
-                    ),
+                return GestureDetector(
+                  onTap: () {
+                    context.router.push(DetailEventRoute(event: event));
+                  },
+                  child: EventItemWidget(
+                    path:
+                        'http://192.168.100.140:8000/storage/${event.pathImage}',
+                    category: event.categories.first.name,
+                    title: event.title,
+                    description: event.description,
+                    location: event.location.name,
+                    date: event.startDate,
                   ),
                 );
               },

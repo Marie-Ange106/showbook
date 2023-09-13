@@ -60,16 +60,16 @@ class _SignupScreenState extends State<SignupScreen> {
           if (state.sucessRegistering) {
             var user = state.user;
             context.router.pushAndPopUntil(
-              const ApplicationRoute(),
+              SucessRegisterRoute(user: user!),
               predicate: (_) => false,
             );
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  "Welcome ${user!.name}!",
-                ),
-              ),
-            );
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text(
+            //       "Welcome ${user.name}!",
+            //     ),
+            //   ),
+            // );
           }
         },
         builder: (context, state) {
