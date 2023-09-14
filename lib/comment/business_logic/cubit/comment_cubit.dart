@@ -10,11 +10,16 @@ part 'comment_state.dart';
 class CommentCubit extends Cubit<CommentState> {
   final CommentRepository comment;
 
-  final _commentController = StreamController<List<CommentModel>>();
+  final _commentController = StreamController<List<CommentModel>>.broadcast();
 
   Stream<List<CommentModel>> get commentStream => _commentController.stream;
 
   CommentCubit({required this.comment}) : super(CommentState());
+
+  void closeStream() {
+    // _commentController.stream.listen(null);
+    _commentController.close(); // fermer le flux
+  }
 
   getCommentByEvent({required int eventId}) async {
     try {

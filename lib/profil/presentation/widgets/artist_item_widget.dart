@@ -20,58 +20,62 @@ class ArtistItemWidget extends StatelessWidget {
       bloc: getIt.get<ProfilCubit>()..getProfil(),
       builder: (context, state) {
         if (state.isLooadingProfil) {
-          return Row(
-            children: [
-              for (int i = 0; i <= 1; i++)
-                Shimmer.fromColors(
-                  baseColor: Colors.grey.shade300,
-                  highlightColor: Colors.grey.shade100,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Container(
-                      height: 170,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.white,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Shimmer.fromColors(
-                            baseColor: Colors.grey.shade300,
-                            highlightColor: Colors.grey.shade100,
-                            child: Container(
-                              height: 10,
-                              width: 20,
-                              color: AppColors.white,
+          return Container(
+            height: 180,
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade100,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  for (int i = 0; i <= 4; i++)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Container(
+                        height: 170,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.white,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Container(
+                                height: 10,
+                                width: 20,
+                                color: AppColors.white,
+                              ),
                             ),
-                          ),
-                          Shimmer.fromColors(
-                            baseColor: Colors.grey.shade300,
-                            highlightColor: Colors.grey.shade100,
-                            child: Container(
-                              height: 10,
-                              width: 40,
-                              color: AppColors.white,
+                            Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Container(
+                                height: 10,
+                                width: 40,
+                                color: AppColors.white,
+                              ),
                             ),
-                          ),
-                          Shimmer.fromColors(
-                            baseColor: Colors.grey.shade300,
-                            highlightColor: Colors.grey.shade100,
-                            child: Container(
-                              height: 20,
-                              width: 40,
-                              color: const Color.fromARGB(255, 208, 88, 88),
+                            Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Container(
+                                height: 20,
+                                width: 40,
+                                color: const Color.fromARGB(255, 208, 88, 88),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-            ],
+                ],
+              ),
+            ),
           );
         }
 
@@ -161,6 +165,8 @@ class ArtistItemWidget extends StatelessWidget {
                               children: [
                                 Text(
                                   profil.name,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 1,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w900,
                                       fontSize: 16,

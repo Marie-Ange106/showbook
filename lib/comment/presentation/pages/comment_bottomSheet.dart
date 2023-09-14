@@ -18,18 +18,27 @@ class CommentBottomSheet extends StatefulWidget {
 class _CommentBottomSheetState extends State<CommentBottomSheet> {
   late TextEditingController _commentController;
   bool _inputNonVide = false;
+  final _commentFocusNode = FocusNode();
+
   @override
   void initState() {
     _commentController = TextEditingController();
+    context.read<CommentCubit>().commentStream;
     super.initState();
   }
+
+  // @override
+  // void dispose() {
+  //   context.read<CommentCubit>().closeStream();
+  //   // getIt.get<CommentCubit>().closeStream();
+  //   // fermer le flux
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<CommentCubit, CommentState>(
-        // bloc: getIt.get<CommentCubit>()
-        //   ..getCommentByEvent(eventId: widget.eventId),
         builder: (context, state) {
           if (state.isLoadingComment) {
             const Center(
@@ -61,7 +70,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                 child: Column(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.only(top: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -88,57 +97,62 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                           itemBuilder: (context, index) {
                             var comment = comments![index];
                             return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const CircleAvatar(
-                                    radius: 25,
-                                    backgroundColor:
-                                        Color.fromARGB(255, 232, 231, 231),
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 25,
+                              padding:
+                                  const EdgeInsets.only(bottom: 35, left: 5),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const CircleAvatar(
+                                      radius: 25,
+                                      backgroundColor:
+                                          Color.fromARGB(255, 232, 231, 231),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 25,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        comment.user.name,
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: AppColors.tertiary,
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          comment.user.name,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.tertiary,
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        width: 300,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              comment.content,
-                                              softWrap: true,
-                                              style: const TextStyle(
-                                                fontSize: 15,
+                                        Container(
+                                          width: 300,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                comment.content,
+                                                softWrap: true,
+                                                style: const TextStyle(
+                                                  fontSize: 15,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      // Text(comment.createdAt.toString())
-                                    ],
-                                  ),
-                                ],
+                                        // Text(comment.createdAt.toString())
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -158,6 +172,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
         child: Form(
           child: TextFormField(
             controller: _commentController,
+            focusNode: _commentFocusNode,
             decoration: InputDecoration(
               hintText: 'Enter a comment',
               hintStyle: const TextStyle(
@@ -173,6 +188,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(40),
               ),
+              //  verifier si il y'a une valeur entrer et afficher le bouton d'envoie ou pas
               suffixIcon: _inputNonVide
                   ? IconButton(
                       icon: const Icon(
@@ -185,6 +201,8 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                               content: _commentController.text,
                             );
                         _commentController.clear();
+                        _commentFocusNode
+                            .unfocus(); // désactiver le clavier apres l'envoie du comment
                       },
                     )
                   : null,

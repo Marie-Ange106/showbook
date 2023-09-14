@@ -72,6 +72,7 @@ class VerticalMenuScreen extends StatelessWidget {
                 padding: EdgeInsets.only(top: 8.0),
                 child: Divider(),
               ),
+              // info à afficher lorsqu'on a un user connecté*************
               if (state.sucessTcheckUser)
                 Column(
                   children: [
@@ -130,7 +131,7 @@ class VerticalMenuScreen extends StatelessWidget {
                       title: const Text(
                         'About us',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 14,
                         ),
                       ),
                       onTap: () {
@@ -150,7 +151,7 @@ class VerticalMenuScreen extends StatelessWidget {
                       title: const Text(
                         'Blogs',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 14,
                         ),
                       ),
                       onTap: () {
@@ -170,7 +171,7 @@ class VerticalMenuScreen extends StatelessWidget {
                       title: const Text(
                         'Contact',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 14,
                         ),
                       ),
                       onTap: () {
@@ -187,7 +188,7 @@ class VerticalMenuScreen extends StatelessWidget {
                       title: Text(
                         'Dark Mode',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 14,
                         ),
                       ),
                       trailing: Icon(Icons.dark_mode_sharp),
@@ -215,16 +216,18 @@ class VerticalMenuScreen extends StatelessWidget {
                     children: [
                       ButtonWidget(
                         text: 'Add event',
-                        borderColor: Color.fromARGB(255, 251, 222, 222),
-                        bgColor: Color.fromARGB(255, 251, 222, 222),
-                        height: 50,
+                        textColor: AppColors.white,
+                        borderColor: AppColors.primary,
+                        bgColor: AppColors.primary,
+                        height: 40,
                         width: 235,
-                        fontSize: 20,
+                        fontSize: 16,
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 30),
                         child: Icon(
                           Icons.add,
+                          color: AppColors.white,
                         ),
                       ),
                     ],
@@ -232,7 +235,7 @@ class VerticalMenuScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 100,
+                height: 30,
               ),
               if (state.sucessTcheckUser)
                 GestureDetector(
@@ -243,7 +246,7 @@ class VerticalMenuScreen extends StatelessWidget {
                     text: 'Logout',
                     borderColor: AppColors.tertiary,
                     height: 40,
-                    width: 200,
+                    width: 235,
                     fontSize: 14,
                   ),
                 ),
