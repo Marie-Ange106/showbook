@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:showbook/category/presentation/widgets/dropdown_category_widget.dart';
-import 'package:showbook/event/presentation/widgets/dropdown_location_widget.dart';
+
 import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/shared/widgets/input_widget.dart';
 
 import '../../../profil/presentation/widgets/dropdown_profil_widget.dart';
-import '../../../shared/routes/routes.gr.dart';
+import '../../../shared/widgets/button_widget.dart';
+import '../widgets/dropdown_location_widget.dart';
 
 @RoutePage()
 class AddEventScreen extends StatefulWidget {
@@ -21,28 +22,16 @@ class AddEventScreen extends StatefulWidget {
 
 class _AddEventScreenState extends State<AddEventScreen>
     with SingleTickerProviderStateMixin {
+  String imagePath = '';
   late AnimationController _controller;
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TextEditingController _spaceController;
   late TextEditingController _startDateController;
   late TextEditingController _endDateController;
-  late TextEditingController _organizerController;
-  late TextEditingController _locationController;
-  late TextEditingController _categoryController;
-  late TextEditingController _guestController;
+
   late TextEditingController _priceController;
   File? _image;
-
-  List<String> _selectedOptions = [];
-  String _selectedOption = 'pain';
-
-  List<String> _options = [
-    'pain',
-    'beure',
-    'chou',
-    'lait',
-  ];
 
   @override
   void initState() {
@@ -53,25 +42,12 @@ class _AddEventScreenState extends State<AddEventScreen>
     _spaceController = TextEditingController();
     _startDateController = TextEditingController();
     _endDateController = TextEditingController();
-    _organizerController = TextEditingController();
-    _locationController = TextEditingController();
-    _categoryController = TextEditingController();
-    _guestController = TextEditingController();
-    _priceController = TextEditingController();
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  void dropdownCallBack(String? selectedValue) {
-    if (selectedValue is String) {
-      setState(() {
-        _selectedOption = selectedValue;
-      });
-    }
   }
 
   @override
@@ -89,7 +65,7 @@ class _AddEventScreenState extends State<AddEventScreen>
             padding: EdgeInsets.all(15),
             child: Column(
               children: [
-                // image
+                // image**************************
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,6 +139,7 @@ class _AddEventScreenState extends State<AddEventScreen>
                               if (image != null) {
                                 setState(() {
                                   _image = File(image.path);
+                                  imagePath = _image!.path;
                                 });
                               }
                             },
@@ -253,38 +230,76 @@ class _AddEventScreenState extends State<AddEventScreen>
                   height: 20,
                 ),
                 // location ***********************
-                // const Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       'Location',
-                //       style: TextStyle(
-                //         fontSize: 16,
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       height: 5,
-                //     ),
-                //     DropdownLocationWidget(),
-                //   ],
-                // ),
-
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Location',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    DropdownLocationWidget(),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 //  organizer ***********************
-                // const Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       'Organizer',
-                //       style: TextStyle(
-                //         fontSize: 16,
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       height: 5,
-                //     ),
-                //     DropdownProfilWidget(),
-                //   ],
-                // )
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Organizer',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    DropdownProfilWidget(),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                // guests************************
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Guest(s)',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    DropdownProfilWidget(),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: ButtonWidget(
+                    borderColor: AppColors.primary,
+                    bgColor: AppColors.primary,
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    fontSize: 17,
+                    text: 'Continue',
+                    textColor: AppColors.white,
+                  ),
+                ),
               ],
             ),
           ),

@@ -74,4 +74,54 @@ class EventCubit extends Cubit<EventState> {
       );
     } catch (e) {}
   }
+
+  addEvent({
+    required String title,
+    required String description,
+    required String pathImage,
+    required int numberSpace,
+    required String startDate,
+    String? endDate,
+    required int organiserId,
+    required int userId,
+    required int locationId,
+  }) async {
+    try {
+      emit(
+        state.copyWith(
+          isSendingData: true,
+          sucessSendingData: false,
+          errorSendingData: false,
+        ),
+      );
+      var event = await eventRepository.addEvent(
+        title: title,
+        description: description,
+        pathImage: pathImage,
+        numberSpace: numberSpace,
+        startDate: startDate,
+        endDate: endDate,
+        organiserId: organiserId,
+        userId: userId,
+        locationId: locationId,
+      );
+      emit(
+        state.copyWith(
+          event: event,
+          isSendingData: false,
+          sucessSendingData: true,
+          errorSendingData: false,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          isSendingData: false,
+          sucessSendingData: false,
+          errorSendingData: true,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
 }

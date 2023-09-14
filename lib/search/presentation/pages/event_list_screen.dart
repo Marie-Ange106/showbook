@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../comment/business_logic/cubit/comment_cubit.dart';
+
 import '../../../event/business_logic/cubit/event_cubit.dart';
 import '../../../service_locator.dart';
 import '../../../shared/routes/routes.gr.dart';

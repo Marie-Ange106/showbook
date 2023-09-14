@@ -6,6 +6,7 @@ import '../../business_logic/cubit/category_cubit.dart';
 import '../../../service_locator.dart';
 
 class DropDownCategoryWidget extends StatefulWidget {
+  static String selectedCategory = 'Concert';
   const DropDownCategoryWidget({super.key});
 
   @override
@@ -13,8 +14,6 @@ class DropDownCategoryWidget extends StatefulWidget {
 }
 
 class _DropDownCategoryWidgetState extends State<DropDownCategoryWidget> {
-  String _selectedOption = 'Concert';
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -33,7 +32,7 @@ class _DropDownCategoryWidgetState extends State<DropDownCategoryWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DropdownButtonFormField(
-                  value: _selectedOption,
+                  value: DropDownCategoryWidget.selectedCategory,
                   items: categories.map((e) {
                     return DropdownMenuItem(
                       value: e,
@@ -43,14 +42,15 @@ class _DropDownCategoryWidgetState extends State<DropDownCategoryWidget> {
                   onChanged: (val) {
                     setState(
                       () {
-                        _selectedOption = val!;
+                        DropDownCategoryWidget.selectedCategory = val!;
                       },
                     );
                   },
-                  dropdownColor: const Color.fromARGB(255, 227, 227, 227),
+                  dropdownColor: const Color.fromARGB(255, 246, 226, 226),
                   menuMaxHeight: 200,
                   borderRadius: BorderRadius.circular(20),
                   decoration: InputDecoration(
+                    // contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     iconColor: AppColors.primary,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),

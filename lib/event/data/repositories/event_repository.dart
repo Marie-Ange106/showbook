@@ -53,9 +53,43 @@ class EventRepository {
 
   // Future<List<LikeModel>> getAllEventLikedByUser(){
   //   List<LikeModel> likes = [];
-    
+
   //     likes.add(LikeModel.fromJson(event));
   //   return likes;
-    
+
   // }
+  Future<EventModel> addEvent({
+    required String title,
+    required String description,
+    required String pathImage,
+    required int numberSpace,
+    required String startDate,
+    String? endDate,
+    required int organiserId,
+    required int userId,
+    required int locationId,
+  }) async {
+    var prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    Response response = await dio.post(
+      '/api/showbook/event',
+      data: {
+        'title': title,
+        'description': description,
+        'path_image': pathImage,
+        'number_space': numberSpace,
+        'start_date': startDate,
+        'end_date': endDate,
+        'organiser_id': organiserId,
+        'location_id': locationId,
+      },
+      options: Options(headers: {
+        'Authorization': 'Bearer $token',
+      }),
+    );
+    var data = response.data["event"];
+    // print(data);
+
+    return EventModel.fromJson(data);
+  }
 }

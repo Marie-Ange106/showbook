@@ -5,6 +5,7 @@ import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
 import '../../../service_locator.dart';
 
 class DropdownLocationWidget extends StatefulWidget {
+  static String selectedLocation = 'Canal olympia';
   const DropdownLocationWidget({super.key});
 
   @override
@@ -12,8 +13,6 @@ class DropdownLocationWidget extends StatefulWidget {
 }
 
 class _DropdownLocationWidgetState extends State<DropdownLocationWidget> {
-  String _selectedOption = '';
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -27,13 +26,13 @@ class _DropdownLocationWidgetState extends State<DropdownLocationWidget> {
             for (var location in state.locations!) {
               locations.add(location.name);
             }
-            print(locations);
+
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DropdownButtonFormField(
-                  value: _selectedOption,
+                  value: DropdownLocationWidget.selectedLocation,
                   items: locations.map((e) {
                     return DropdownMenuItem(
                       value: e,
@@ -42,7 +41,7 @@ class _DropdownLocationWidgetState extends State<DropdownLocationWidget> {
                   }).toList(),
                   onChanged: (val) {
                     setState(() {
-                      _selectedOption = val!;
+                      DropdownLocationWidget.selectedLocation = val!;
                     });
                   },
                   decoration: InputDecoration(

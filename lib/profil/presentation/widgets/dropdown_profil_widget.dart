@@ -5,6 +5,7 @@ import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import '../../../service_locator.dart';
 
 class DropdownProfilWidget extends StatefulWidget {
+  static String selectedOrganizer = 'Tayc';
   const DropdownProfilWidget({super.key});
 
   @override
@@ -12,7 +13,6 @@ class DropdownProfilWidget extends StatefulWidget {
 }
 
 class _DropdownProfilWidgetState extends State<DropdownProfilWidget> {
-  String _selectedOption = 'Concert';
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,26 +22,26 @@ class _DropdownProfilWidgetState extends State<DropdownProfilWidget> {
               ? getIt.get<ProfilCubit>().getProfil()
               : getIt.get<ProfilCubit>(),
           builder: (context, state) {
-            // List<String> profils = [];
-            // for (var profil in state.profils!) {
-            //   profils.add(profil.name);
-            // }
-            var profils = state.profils;
+            List<String> profils = [];
+            for (var profil in state.profils!) {
+              profils.add(profil.name);
+            }
+            // var profils = state.profils;
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DropdownButtonFormField(
-                  value: _selectedOption,
-                  items: profils!.map((e) {
+                  value: DropdownProfilWidget.selectedOrganizer,
+                  items: profils.map((e) {
                     return DropdownMenuItem(
-                      value: "${e.name}_${e.id}",
-                      child: Text(e.name),
+                      value: e,
+                      child: Text(e),
                     );
                   }).toList(),
                   onChanged: (val) {
                     setState(() {
-                      _selectedOption = val!;
+                      DropdownProfilWidget.selectedOrganizer = val!;
                     });
                   },
                   decoration: InputDecoration(
