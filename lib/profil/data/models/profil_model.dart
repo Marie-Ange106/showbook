@@ -1,5 +1,9 @@
 import 'package:showbook/event/data/models/event_model.dart';
 
+import '../../../auth/data/user_model.dart';
+import 'follow_pivot_model.dart';
+import 'follower_model.dart';
+
 class ProfilModel {
   int id;
   int typeId;
@@ -18,6 +22,8 @@ class ProfilModel {
   List<EventModel>? eventsInvited;
   List<EventModel>? eventsOrganized;
 
+  final List<FollowerModel?> followers;
+
   ProfilModel({
     required this.id,
     required this.typeId,
@@ -35,6 +41,7 @@ class ProfilModel {
     this.follower,
     this.eventsInvited,
     this.eventsOrganized,
+    required this.followers,
   });
 
   factory ProfilModel.fromJson(Map<String, dynamic> json) {
@@ -47,7 +54,7 @@ class ProfilModel {
       phoneNumber: json['phone_number'],
       email: json['email'],
       instagram: json['instagram'],
-      facebook: json['facebook'], 
+      facebook: json['facebook'],
       twitter: json['twitter'],
       userId: json['user_id'],
       createdAt: json['created_at'],
@@ -67,6 +74,43 @@ class ProfilModel {
               ),
             )
           : null,
+      followers: json['followers'] != null
+          ? (json['followers'] as List<dynamic>)
+              .map((e) => FollowerModel.fromJson(e))
+              .toList()
+          : [],
+    );
+  }
+
+  bool isFollowBy({required int userId}) {
+    for (var follower in followers) {
+      if (follower!.pivot.userId == userId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void removeFollow({required int profilId, required int uId}) {
+    for (var ele in followers) {
+      if (ele!.pivot.profilId == profilId && ele.pivot.userId == uId) {
+        followers.remove(ele);
+        break;
+      }
+    }
+  }
+
+  void addFollow({required UserModel user}) {
+    followers.add(
+      FollowerModel(
+        pivot: FollowPivotModel(profilId: id, userId: user.id),
+        id: id,
+        name: name,
+        email: user.email,
+        emailVerifiedAt: user.emailVerifiedAt,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      ),
     );
   }
 }

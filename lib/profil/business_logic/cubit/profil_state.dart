@@ -7,12 +7,23 @@ class ProfilState {
   bool errorLoadingProfil;
   String? message;
 
+  // * follow states
+  FollowPivotModel? follow;
+  bool isLoadingFollow;
+  bool successLoadingFollow;
+  bool errorLoadingFollow;
+
   ProfilState({
     this.profils,
     this.isLooadingProfil = false,
     this.sucessLoadingProfil = false,
     this.errorLoadingProfil = false,
     this.message,
+
+    this.follow,
+    this.isLoadingFollow = false,
+    this.successLoadingFollow = false,
+    this.errorLoadingFollow = false,
   });
 
   ProfilState copyWith({
@@ -21,6 +32,11 @@ class ProfilState {
     bool? sucessLoadingProfil,
     bool? errorLoadingProfil,
     String? message,
+
+    FollowPivotModel? follow,
+    bool? isLoadingFollow,
+    bool? successLoadingFollow,
+    bool? errorLoadingFollow,
   }) {
     return ProfilState(
       profils: profils?? this.profils,
@@ -28,6 +44,11 @@ class ProfilState {
       sucessLoadingProfil: sucessLoadingProfil?? this.sucessLoadingProfil,
       errorLoadingProfil: errorLoadingProfil?? this.errorLoadingProfil,
       message: message?? this.message,
+
+      follow: follow?? this.follow,
+      isLoadingFollow: isLoadingFollow ?? this.isLoadingFollow,
+      successLoadingFollow: successLoadingFollow ?? this.successLoadingFollow,
+      errorLoadingFollow: errorLoadingFollow ?? this.errorLoadingFollow,
     );
   }
 }

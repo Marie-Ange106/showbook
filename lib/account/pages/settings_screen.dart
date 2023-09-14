@@ -5,6 +5,7 @@ import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/shared/widgets/button_widget.dart';
 
+import '../../shared/routes/routes.gr.dart';
 import '../widgets/item_setting_widget.dart';
 
 @RoutePage()
@@ -71,6 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   size: 50,
                                 ),
                               ),
+
                             ],
                           ),
                         ),
@@ -80,8 +82,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             children: [
                               const SizedBox(
                                 height: 10,
-                              ),
-                              Text(
+                                
+                            ),
+                            Text(
                                 user!.name,
                                 style: const TextStyle(
                                   fontSize: 16,
@@ -135,15 +138,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ),
                                 ),
                               )
-                            ],
-                          )
-                        else
-                          Column(
-                            children: [
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Container(
+                          ],
+                        )
+                      else
+                        Column(
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Container(
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.router.push(const LoginRoute());
+                                },
                                 child: const ButtonWidget(
                                   text: 'Connexion',
                                   textColor: AppColors.white,
@@ -154,8 +161,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   fontSize: 18,
                                 ),
                               ),
+                            ) 
                             ],
                           )
+                        // else
+                        //   Column(
+                        //     children: [
+                        //       const SizedBox(
+                        //         height: 30,
+                        //       ),
+                        //       Container(
+                        //         child: const ButtonWidget(
+                        //           text: 'Connexion',
+                        //           textColor: AppColors.white,
+                        //           borderColor: AppColors.primary,
+                        //           bgColor: AppColors.primary,
+                        //           height: 40,
+                        //           width: 200,
+                        //           fontSize: 18,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   )
                       ],
                     ),
                   ),

@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:showbook/profil/data/models/profil_model.dart';
 import 'package:showbook/profil/data/repositories/profil_repository.dart';
 
+import '../../data/models/follow_pivot_model.dart';
+
 part 'profil_state.dart';
 
 class ProfilCubit extends Cubit<ProfilState> {
@@ -52,6 +54,37 @@ class ProfilCubit extends Cubit<ProfilState> {
           isLooadingProfil: false,
           sucessLoadingProfil: false,
           errorLoadingProfil: true,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
+
+  follow({required int profilId}) async {
+    try {
+      emit(
+        state.copyWith(
+          isLoadingFollow: true,
+          successLoadingFollow: false,
+          errorLoadingFollow: false,
+        ),
+      );
+
+      var data = await profilRepository.follow(profilId: profilId);
+      emit(
+        state.copyWith(
+          follow: data,
+          isLoadingFollow: false,
+          successLoadingFollow: true,
+          errorLoadingFollow: false,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          isLoadingFollow: false,
+          successLoadingFollow: false,
+          errorLoadingFollow: true,
           message: e.toString(),
         ),
       );

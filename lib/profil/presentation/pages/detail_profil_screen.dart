@@ -6,6 +6,9 @@ import 'package:showbook/event/presentation/pages/past_event_profil_screen.dart'
 import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/shared/widgets/button_widget.dart';
 
+import '../../../auth/business_logic/cubit/auth_cubit.dart';
+import '../../../service_locator.dart';
+import '../../../shared/widgets/follow_widget.dart';
 import '../../data/models/profil_model.dart';
 
 @RoutePage()
@@ -104,148 +107,297 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
               children: [
                 // header
 
-                Column(
-                  children: [
-                    Stack(
-                      // alignment: Alignment.bottomCenter,
-                      children: [
-                        Container(
-                          height: 100,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(50),
-                            ),
-                            color: AppColors.tertiary,
+// <<<<<<< HEAD
+//                 Column(
+//                   children: [
+//                     Stack(
+//                       // alignment: Alignment.bottomCenter,
+// =======
+              Column(
+                children: [
+                  Stack(
+                    // alignment: Alignment.bottomCenter,
+                    children: [
+                      Container(
+                        height: 100,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(50),
+                          ),
+                          color: AppColors.tertiary,
+                        ),
+                      ),
+                      Container(
+                        height: 130,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(50),
                           ),
                         ),
-                        Container(
-                          height: 130,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height: 102,
+                                  width: 102,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    // color: Colors.amber,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: Image.network(
+                                      'http://192.168.100.140:8000/storage/${widget.profil.imagePath}',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Stack(
-                                alignment: Alignment.center,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 40),
+                              child: Column(
                                 children: [
-                                  Container(
-                                    height: 102,
-                                    width: 102,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: AppColors.primary,
+                                  Text(
+                                    widget.profil.follower.toString(),
+                                    style: const TextStyle(
+                                      color: AppColors.white,
                                     ),
                                   ),
-                                  Container(
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      // color: Colors.amber,
+                                  const Text(
+                                    'Followers',
+                                    style: TextStyle(
+                                      color: AppColors.white,
                                     ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Image.network(
-                                        'http://192.168.100.140:8000/storage/${widget.profil.imagePath}',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
+                                  )
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 40),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      widget.profil.follower.toString(),
-                                      style: const TextStyle(
-                                        color: AppColors.white,
-                                      ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 40),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '10',
+                                    style: TextStyle(
+                                      color: AppColors.white,
                                     ),
-                                    const Text(
-                                      'Followers',
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.only(top: 40),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      '10',
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                      ),
+                                  ),
+                                  Text(
+                                    'Coming event',
+                                    style: TextStyle(
+                                      color: AppColors.white,
                                     ),
-                                    Text(
-                                      'Coming event',
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                widget.profil.name,
-                                maxLines: 1,
-                                softWrap: true,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w900,
-                                ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.profil.name,
+                              maxLines: 1,
+                              softWrap: true,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        const ButtonWidget(
-                          borderColor: AppColors.secondary,
-                          text: 'Contact',
-                          textColor: AppColors.secondary,
-                          height: 34,
-                          width: 115,
-                          fontSize: 12,
-                        ),
-                        const ButtonWidget(
-                          borderColor: AppColors.primary,
-                          bgColor: AppColors.primary,
-                          text: 'Follow',
-                          textColor: AppColors.white,
-                          height: 34,
-                          width: 115,
-                          fontSize: 12,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
+                      ),
+                      const ButtonWidget(
+                        borderColor: AppColors.secondary,
+                        text: 'Contact',
+                        textColor: AppColors.secondary,
+                        height: 34,
+                        width: 115,
+                        fontSize: 12,
+                      ),
+                      FollowWidget(
+                        profilModel: widget.profil,
+                        user: getIt.get<AuthCubit>().state.user,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+
+              // Column(
+              //   children: [
+              //     // description or biography
+              //     Padding(
+              //       padding: const EdgeInsets.only(left: 15, right: 15),
+              //       child: Column(
+              //         mainAxisAlignment: MainAxisAlignment.start,
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+
+              //         children: [
+              //           Container(
+              //             height: 100,
+              //             decoration: const BoxDecoration(
+              //               borderRadius: BorderRadius.only(
+              //                 bottomLeft: Radius.circular(50),
+              //               ),
+              //               color: AppColors.tertiary,
+              //             ),
+              //           ),
+              //           Container(
+              //             height: 130,
+              //             decoration: const BoxDecoration(
+              //               borderRadius: BorderRadius.only(
+              //                 bottomLeft: Radius.circular(50),
+              //               ),
+              //             ),
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //               crossAxisAlignment: CrossAxisAlignment.end,
+              //               children: [
+              //                 Stack(
+              //                   alignment: Alignment.center,
+              //                   children: [
+              //                     Container(
+              //                       height: 102,
+              //                       width: 102,
+              //                       decoration: BoxDecoration(
+              //                         borderRadius: BorderRadius.circular(50),
+              //                         color: AppColors.primary,
+              //                       ),
+              //                     ),
+              //                     Container(
+              //                       height: 100,
+              //                       width: 100,
+              //                       decoration: BoxDecoration(
+              //                         borderRadius: BorderRadius.circular(50),
+              //                         // color: Colors.amber,
+              //                       ),
+              //                       child: ClipRRect(
+              //                         borderRadius: BorderRadius.circular(50),
+              //                         child: Image.network(
+              //                           'http://192.168.100.140:8000/storage/${widget.profil.imagePath}',
+              //                           fit: BoxFit.cover,
+              //                         ),
+              //                       ),
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 Padding(
+              //                   padding: const EdgeInsets.only(top: 40),
+              //                   child: Column(
+              //                     children: [
+              //                       Text(
+              //                         widget.profil.follower.toString(),
+              //                         style: const TextStyle(
+              //                           color: AppColors.white,
+              //                         ),
+              //                       ),
+              //                       const Text(
+              //                         'Followers',
+              //                         style: TextStyle(
+              //                           color: AppColors.white,
+              //                         ),
+              //                       )
+              //                     ],
+              //                   ),
+              //                 ),
+              //                 const Padding(
+              //                   padding: EdgeInsets.only(top: 40),
+              //                   child: Column(
+              //                     children: [
+              //                       Text(
+              //                         '10',
+              //                         style: TextStyle(
+              //                           color: AppColors.white,
+              //                         ),
+              //                       ),
+              //                       Text(
+              //                         'Coming event',
+              //                         style: TextStyle(
+              //                           color: AppColors.white,
+              //                         ),
+              //                       )
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //         crossAxisAlignment: CrossAxisAlignment.center,
+              //         children: [
+              //           Padding(
+              //             padding: const EdgeInsets.only(left: 25),
+              //             child: Column(
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               mainAxisAlignment: MainAxisAlignment.center,
+              //               children: [
+              //                 Text(
+              //                   widget.profil.name,
+              //                   maxLines: 1,
+              //                   softWrap: true,
+              //                   style: const TextStyle(
+              //                     fontSize: 16,
+              //                     fontWeight: FontWeight.w900,
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //           const ButtonWidget(
+              //             borderColor: AppColors.secondary,
+              //             text: 'Contact',
+              //             textColor: AppColors.secondary,
+              //             height: 34,
+              //             width: 115,
+              //             fontSize: 12,
+              //           ),
+              //           const ButtonWidget(
+              //             borderColor: AppColors.primary,
+              //             bgColor: AppColors.primary,
+              //             text: 'Follow',
+              //             textColor: AppColors.white,
+              //             height: 34,
+              //             width: 115,
+              //             fontSize: 12,
+              //           ),
+              //         ],
+              //       ),
+              //       const SizedBox(
+              //         height: 20,
+              //       ),
+              //     ],
+              //   ),
 
                 Column(
                   children: [
