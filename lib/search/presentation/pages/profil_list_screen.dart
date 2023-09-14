@@ -51,11 +51,7 @@ class _ProfilListScreenState extends State<ProfilListScreen> {
                       context.router.push(DetailProfilRoute(profil: profil));
                     },
                     child: ProfilWidget(
-                      imagePath:
-                          'http://192.168.100.140:8000/storage/${profil.imagePath}',
-                      typeProfil: 'type',
-                      profilName: profil.name,
-                      follower: '${profil.follower.toString()} Followers',
+                      profilModel: profil,
                     ),
                   ),
                 );

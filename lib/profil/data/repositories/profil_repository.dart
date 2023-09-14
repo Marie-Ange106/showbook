@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showbook/profil/data/models/profil_model.dart';
+
+import '../models/follow_pivot_model.dart';
 
 class ProfilRepository {
   final Dio dio;
@@ -28,13 +31,31 @@ class ProfilRepository {
     );
 
     var data = response.data['profils'];
-
     List<ProfilModel> profils = [];
 
     for (var profil in data) {
       profils.add(ProfilModel.fromJson(profil));
     }
-
     return profils;
+  }
+
+  Future<FollowPivotModel?> follow({required int profilId}) async {
+    var prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+
+    Response response = await dio.post(
+      '/api/showbook/profil/$profilId/follow',
+      options: Options(
+        headers: {
+          'Authorization': "Bearer $token",
+        },
+      ),
+    );
+
+    if (response.data["message"] == "Unfollowed") {
+      return null;
+    }
+
+    return FollowPivotModel.fromJson(response.data["follow"]);
   }
 }

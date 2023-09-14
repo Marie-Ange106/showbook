@@ -1,25 +1,26 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showbook/auth/data/user_model.dart';
+import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 
+import '../../../auth/business_logic/cubit/auth_cubit.dart';
+import '../../../service_locator.dart';
 import '../../../shared/utils/app_colors.dart';
 import '../../../shared/widgets/button_widget.dart';
+import '../../../shared/widgets/follow_widget.dart';
+import '../../data/models/profil_model.dart';
 
 class ProfilWidget extends StatelessWidget {
   const ProfilWidget({
     super.key,
-    required this.imagePath,
-    required this.typeProfil,
-    required this.profilName,
-    required this.follower,
+    required this.profilModel,
   });
 
-  final String imagePath;
-  final String typeProfil;
-  final String profilName;
-  final String follower;
+  final ProfilModel profilModel;
 
   @override
   Widget build(BuildContext context) {
+    var user = getIt.get<AuthCubit>().state.user!;
     return SizedBox(
       child: Row(
         children: [
@@ -33,7 +34,7 @@ class ProfilWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: Image.network(
-                imagePath,
+                'http://192.168.100.140:8000/storage/${profilModel.imagePath}',
                 fit: BoxFit.cover,
               ),
             ),
@@ -45,14 +46,13 @@ class ProfilWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 130,
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Type',
+                        'type',
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.primary,
@@ -62,8 +62,9 @@ class ProfilWidget extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                           profilName,
+                            profilModel.name,
                             softWrap: true,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
@@ -72,7 +73,7 @@ class ProfilWidget extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        follower.toString(),
+                        '${profilModel.follower.toString()} Followers',
                         style: const TextStyle(
                           fontSize: 12,
                         ),
@@ -80,17 +81,9 @@ class ProfilWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                 const Row(
+                Row(
                   children: [
-                    ButtonWidget(
-                      borderColor: AppColors.primary,
-                      bgColor: AppColors.primary,
-                      text: 'Follow',
-                      textColor: AppColors.white,
-                      height: 34,
-                      width: 115,
-                      fontSize: 14,
-                    ),
+                    FollowWidget(profilModel: profilModel, user: user),
                   ],
                 )
               ],
@@ -101,3 +94,4 @@ class ProfilWidget extends StatelessWidget {
     );
   }
 }
+

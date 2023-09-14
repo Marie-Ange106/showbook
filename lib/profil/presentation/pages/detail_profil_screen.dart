@@ -6,6 +6,9 @@ import 'package:showbook/event/presentation/pages/past_event_profil_screen.dart'
 import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/shared/widgets/button_widget.dart';
 
+import '../../../auth/business_logic/cubit/auth_cubit.dart';
+import '../../../service_locator.dart';
+import '../../../shared/widgets/follow_widget.dart';
 import '../../data/models/profil_model.dart';
 
 @RoutePage()
@@ -229,14 +232,9 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
                         width: 115,
                         fontSize: 12,
                       ),
-                      const ButtonWidget(
-                        borderColor: AppColors.primary,
-                        bgColor: AppColors.primary,
-                        text: 'Follow',
-                        textColor: AppColors.white,
-                        height: 34,
-                        width: 115,
-                        fontSize: 12,
+                      FollowWidget(
+                        profilModel: widget.profil,
+                        user: getIt.get<AuthCubit>().state.user,
                       ),
                     ],
                   ),

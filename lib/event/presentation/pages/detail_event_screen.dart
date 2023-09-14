@@ -49,7 +49,6 @@ class _DetailEventScreenState extends State<DetailEventScreen> {
       });
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -319,11 +318,7 @@ class _DetailEventScreenState extends State<DetailEventScreen> {
                       height: 20,
                     ),
                     ProfilWidget(
-                      imagePath:
-                          'http://192.168.100.140:8000/storage/${widget.event.organizer!.imagePath}',
-                      typeProfil: 'Type',
-                      profilName: widget.event.organizer!.name,
-                      follower: widget.event.organizer!.follower.toString(),
+                      profilModel: widget.event.organizer!,
                     ),
                   ],
                 ),
