@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:showbook/event/data/models/event_model.dart';
 import 'package:showbook/event/data/repositories/event_repository.dart';
@@ -78,13 +80,15 @@ class EventCubit extends Cubit<EventState> {
   addEvent({
     required String title,
     required String description,
-    required String pathImage,
+    required File image,
     required int numberSpace,
-    required String startDate,
+    required DateTime startDate,
     String? endDate,
+    int? price,
     required int organiserId,
-    required int userId,
     required int locationId,
+    required int categories,
+    int? guests,
   }) async {
     try {
       emit(
@@ -97,13 +101,13 @@ class EventCubit extends Cubit<EventState> {
       var event = await eventRepository.addEvent(
         title: title,
         description: description,
-        pathImage: pathImage,
+        image: image,
         numberSpace: numberSpace,
         startDate: startDate,
         endDate: endDate,
         organiserId: organiserId,
-        userId: userId,
         locationId: locationId,
+        categories: categories,
       );
       emit(
         state.copyWith(

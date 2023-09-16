@@ -55,6 +55,16 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
               ),
             );
           }
+          if (state.errorLoadingComment) {
+            const Center(
+              child: Text(
+                'No comments',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            );
+          }
           var comments = state.comments;
           return StreamBuilder(
             stream: context.read<CommentCubit>().commentStream,
@@ -93,9 +103,10 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListView.builder(
-                          itemCount: state.comments!.length,
+                          itemCount: state.comments?.length,
                           itemBuilder: (context, index) {
                             var comment = comments![index];
+
                             return Padding(
                               padding:
                                   const EdgeInsets.only(bottom: 35, left: 5),

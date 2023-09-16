@@ -1,4 +1,5 @@
 class LocationModel {
+  int id;
   String name;
   double latitude;
   double longitude;
@@ -9,6 +10,7 @@ class LocationModel {
   String updatedAt;
 
   LocationModel({
+    required this.id,
     required this.name,
     required this.latitude,
     required this.longitude,
@@ -21,6 +23,7 @@ class LocationModel {
 
   factory LocationModel.fromJson(Map<String, dynamic> json) {
     return LocationModel(
+      id : json['id'],
       name: json['name'],
       latitude: json['latitude'],
       longitude: json['longitude'],

@@ -6,7 +6,7 @@ import '../../business_logic/cubit/category_cubit.dart';
 import '../../../service_locator.dart';
 
 class DropDownCategoryWidget extends StatefulWidget {
-  static String selectedCategory = 'Concert';
+  static int selectedCategory = 1;
   const DropDownCategoryWidget({super.key});
 
   @override
@@ -23,20 +23,21 @@ class _DropDownCategoryWidgetState extends State<DropDownCategoryWidget> {
               ? getIt.get<CategoryCubit>().getCategory()
               : getIt.get<CategoryCubit>(),
           builder: (context, state) {
-            List<String> categories = [];
-            for (var category in state.categories!) {
-              categories.add(category.name);
-            }
+            // List<String> categories = [];
+            // for (var category in state.categories!) {
+            //   categories.add(category.name);
+            // }
+            var categories = state.categories;
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DropdownButtonFormField(
                   value: DropDownCategoryWidget.selectedCategory,
-                  items: categories.map((e) {
+                  items: categories!.map((e) {
                     return DropdownMenuItem(
-                      value: e,
-                      child: Text(e),
+                      value: e.id,
+                      child: Text(e.name),
                     );
                   }).toList(),
                   onChanged: (val) {

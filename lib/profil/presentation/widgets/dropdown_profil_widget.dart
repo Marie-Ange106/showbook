@@ -5,7 +5,7 @@ import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import '../../../service_locator.dart';
 
 class DropdownProfilWidget extends StatefulWidget {
-  static String selectedOrganizer = 'Tayc';
+  static int selectedOrganizer = 2;
   const DropdownProfilWidget({super.key});
 
   @override
@@ -22,21 +22,21 @@ class _DropdownProfilWidgetState extends State<DropdownProfilWidget> {
               ? getIt.get<ProfilCubit>().getProfil()
               : getIt.get<ProfilCubit>(),
           builder: (context, state) {
-            List<String> profils = [];
-            for (var profil in state.profils!) {
-              profils.add(profil.name);
-            }
-            // var profils = state.profils;
+            // List<String> profils = [];
+            // for (var profil in state.profils!) {
+            //   profils.add(profil.name);
+            // }
+            var profils = state.profils;
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DropdownButtonFormField(
                   value: DropdownProfilWidget.selectedOrganizer,
-                  items: profils.map((e) {
+                  items: profils!.map((e) {
                     return DropdownMenuItem(
-                      value: e,
-                      child: Text(e),
+                      value: e.id,
+                      child: Text(e.name),
                     );
                   }).toList(),
                   onChanged: (val) {

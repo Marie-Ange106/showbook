@@ -14,7 +14,7 @@ class AuthState {
   final bool errorRegistering;
   // 
   final bool sucessTcheckUser;
-  final bool failureTcheckUser;
+  final bool isCheckingUser;
   final bool errorTcheckUser;
 
   const AuthState({
@@ -30,7 +30,7 @@ class AuthState {
     this.sucessRegistering = false,
     // 
     this.sucessTcheckUser = false,
-    this.failureTcheckUser = false,
+    this.isCheckingUser = false,
     this.errorTcheckUser = false,
   });
 
@@ -41,13 +41,13 @@ class AuthState {
     bool? errorLoginging,
     // 
     String? message,
-    // 
+    // register
     bool? isRegistering,
     bool? sucessRegistering,
     bool? errorRegistering,
-    // 
+    // check user
     bool? sucessTcheckUser,
-    bool? failureTcheckUser,
+    bool? isCheckingUser,
     bool? errorTcheckUser,
   }) {
     return AuthState(
@@ -63,7 +63,7 @@ class AuthState {
       errorRegistering: errorRegistering ?? this.errorRegistering,
       // 
       sucessTcheckUser: sucessTcheckUser ?? this.sucessTcheckUser,
-      failureTcheckUser: failureTcheckUser ?? this.failureTcheckUser,
+      isCheckingUser: isCheckingUser ?? this.isCheckingUser,
       errorTcheckUser:  errorTcheckUser ?? this.errorTcheckUser,
     );
   }

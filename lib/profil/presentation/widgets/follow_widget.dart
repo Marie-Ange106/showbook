@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showbook/account/business_logic/cubit/user_cubit.dart';
 
-import '../../auth/data/user_model.dart';
-import '../../profil/business_logic/cubit/profil_cubit.dart';
-import '../../profil/data/models/profil_model.dart';
-import '../../service_locator.dart';
-import '../utils/app_colors.dart';
-import 'button_widget.dart';
+import '../../../auth/data/user_model.dart';
+import '../../business_logic/cubit/profil_cubit.dart';
+import '../../data/models/profil_model.dart';
+import '../../../service_locator.dart';
+import '../../../shared/utils/app_colors.dart';
+import '../../../shared/widgets/button_widget.dart';
 
 class FollowWidget extends StatelessWidget {
   const FollowWidget({
@@ -31,9 +32,11 @@ class FollowWidget extends StatelessWidget {
                 profilModel.removeFollow(
                     profilId: profilModel.id, uId: user!.id);
                 getIt.get<ProfilCubit>().follow(profilId: profilModel.id);
+                getIt.get<UserCubit>().removeProfil(profilModel);
               } else {
                 profilModel.addFollow(user: user!);
                 getIt.get<ProfilCubit>().follow(profilId: profilModel.id);
+                getIt.get<UserCubit>().addProfilFollowed(profilModel);
               }
             }
           },

@@ -131,7 +131,7 @@ class _EventListScreenState extends State<EventListScreen> {
                   },
                   child: EventItemWidget(
                     path:
-                        'http://192.168.100.140:8000/storage/${event.pathImage}',
+                        'http://192.168.28.229:8000/storage/${event.pathImage}',
                     category: event.categories.first.name,
                     title: event.title,
                     description: event.description,

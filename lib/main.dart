@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showbook/account/business_logic/cubit/user_cubit.dart';
 import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:showbook/category/business_logic/cubit/category_cubit.dart';
 import 'package:showbook/comment/business_logic/cubit/comment_cubit.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<CommentCubit>(
           create: (context) => getIt.get<CommentCubit>(),
+        ),
+        BlocProvider<UserCubit>(
+          create: (context) => getIt.get<UserCubit>(),
         ),
       ],
       child: MaterialApp.router(

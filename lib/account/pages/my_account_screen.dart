@@ -63,7 +63,7 @@ class _MyAccountScreenState extends State<MyAccountScreen>
           labelPadding: const EdgeInsets.only(top: 10),
           tabs: const [
             Text(
-              'Profils followed',
+              ' Profils followed ',
               style: TextStyle(
                 fontSize: 12,
               ),

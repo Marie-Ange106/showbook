@@ -105,12 +105,13 @@ class ProfilModel {
       FollowerModel(
         pivot: FollowPivotModel(profilId: id, userId: user.id),
         id: id,
-        name: name,
+        name: name, 
         email: user.email,
         emailVerifiedAt: user.emailVerifiedAt,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       ),
     );
+    // print(followers);
   }
 }

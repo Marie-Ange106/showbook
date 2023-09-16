@@ -78,6 +78,7 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
     // else if (_controller.index != 1) {
     //   getIt.get<EventCubit>().getEvent();
     // }
+    
 
     super.initState();
   }

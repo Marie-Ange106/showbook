@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
+import 'package:showbook/auth/data/auth_repository.dart';
+import 'package:showbook/service_locator.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/shared/widgets/button_widget.dart';
 
@@ -31,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           // bloc: getIt.get<AuthCubit>()..getUser(),
           builder: (context, state) {
             var user = state.user;
-            print(user);
+            
             return Stack(
               children: [
                 Container(
@@ -72,7 +74,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   size: 50,
                                 ),
                               ),
-
                             ],
                           ),
                         ),
@@ -82,9 +83,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             children: [
                               const SizedBox(
                                 height: 10,
-                                
-                            ),
-                            Text(
+                              ),
+                              Text(
                                 user!.name,
                                 style: const TextStyle(
                                   fontSize: 16,
@@ -103,65 +103,70 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(15),
                                 child: Container(
-                                  child: const Column(
+                                  child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      ItemSettingWidget(
+                                      const ItemSettingWidget(
                                         name: 'Edit Profil',
                                         icon: Icons.edit,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 20,
                                       ),
-                                      ItemSettingWidget(
+                                      const ItemSettingWidget(
                                         name: 'Notification',
                                         icon: Icons.notifications_active,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 20,
                                       ),
-                                      ItemSettingWidget(
+                                      const ItemSettingWidget(
                                         name: 'Dark Mode',
                                         icon: Icons.dark_mode,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 100,
                                       ),
-                                      ItemSettingWidget(
-                                        width: 100,
-                                        name: 'Logout',
-                                        icon: Icons.logout,
+                                      GestureDetector(
+                                        onTap: () {
+                                          getIt.get<AuthRepository>().logout();
+                                        },
+                                        child: const ItemSettingWidget(
+                                          width: 100,
+                                          name: 'Logout',
+                                          icon: Icons.logout,
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
                               )
-                          ],
-                        )
-                      else
-                        Column(
-                          children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                              child: GestureDetector(
-                                onTap: () {
-                                  context.router.push(const LoginRoute());
-                                },
-                                child: const ButtonWidget(
-                                  text: 'Connexion',
-                                  textColor: AppColors.white,
-                                  borderColor: AppColors.primary,
-                                  bgColor: AppColors.primary,
-                                  height: 40,
-                                  width: 200,
-                                  fontSize: 18,
-                                ),
+                            ],
+                          )
+                        else
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: 30,
                               ),
-                            ) 
+                              Container(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.router.push(const LoginRoute());
+                                  },
+                                  child: const ButtonWidget(
+                                    text: 'Connexion',
+                                    textColor: AppColors.white,
+                                    borderColor: AppColors.primary,
+                                    bgColor: AppColors.primary,
+                                    height: 40,
+                                    width: 200,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              )
                             ],
                           )
                         // else

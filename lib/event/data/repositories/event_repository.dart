@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showbook/event/data/models/event_model.dart';
@@ -61,22 +63,26 @@ class EventRepository {
   Future<EventModel> addEvent({
     required String title,
     required String description,
-    required String pathImage,
+    required File image,
     required int numberSpace,
-    required String startDate,
+    required DateTime startDate,
     String? endDate,
+    int? price,
     required int organiserId,
-    required int userId,
     required int locationId,
+    required int categories,
+    int? guests,
   }) async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
+    // Convertir la File en MultipartFile
+    final imageFile = await MultipartFile.fromFile(image.path);
     Response response = await dio.post(
       '/api/showbook/event',
       data: {
         'title': title,
         'description': description,
-        'path_image': pathImage,
+        'image': imageFile,
         'number_space': numberSpace,
         'start_date': startDate,
         'end_date': endDate,

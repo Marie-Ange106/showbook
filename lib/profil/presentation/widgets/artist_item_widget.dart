@@ -144,7 +144,7 @@ class ArtistItemWidget extends StatelessWidget {
                               child: Image(
                                 fit: BoxFit.cover,
                                 image: NetworkImage(
-                                  'http://192.168.100.140:8000/storage/${profil.imagePath}',
+                                  'http://192.168.28.229:8000/storage/${profil.imagePath}',
                                 ),
                               ),
                             ),

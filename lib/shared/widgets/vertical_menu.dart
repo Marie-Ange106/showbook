@@ -56,6 +56,15 @@ class VerticalMenuScreen extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       // bloc: getIt.get<AuthCubit>()..getUser(),
       builder: (context, state) {
+        // if (state.errorTcheckUser) {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     const SnackBar(
+        //       content: Text(
+        //         'Connectez vous, et profitez des fonctionnalités',
+        //       ),
+        //     ),
+        //   );
+        // }
         var user = state.user;
         return Drawer(
           child: ListView(
@@ -203,11 +212,11 @@ class VerticalMenuScreen extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    if (state.failureTcheckUser) {
+                    if (state.errorTcheckUser) {
                       Navigator.pop(context); // ferme le drawer
                       _showLoginDialog(
                           context); // affiche la boîte de dialogue de connexion
-                    } else {
+                    } else if (state.sucessTcheckUser) {
                       context.router.push(const AddEventRoute());
                     }
                   },
@@ -250,7 +259,7 @@ class VerticalMenuScreen extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
-              if (state.failureTcheckUser)
+              if (state.errorTcheckUser)
                 GestureDetector(
                   onTap: () {
                     context.router.push(const LoginRoute());

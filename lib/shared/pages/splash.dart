@@ -21,8 +21,9 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     getIt.get<LocationCubit>().getLocation();
+    getIt.get<AuthCubit>().getUser();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 20), () {
       context.router.pushAndPopUntil(
         const ApplicationRoute(),
         predicate: (_) => false,
@@ -44,7 +45,18 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
+        if (state.errorTcheckUser) {
+          // context.router.push(const HomeRoute());
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.message.toString(),
+              ),
+            ),
+          );
+        }
         if (state.sucessTcheckUser) {
+          // context.router.push(const HomeRoute());
           getIt.get<AuthCubit>().getUser();
         }
       },
