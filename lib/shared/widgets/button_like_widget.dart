@@ -23,7 +23,7 @@ class _ButtonLikeWidgetState extends State<ButtonLikeWidget> {
             width: 30,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-              color: AppColors.tertiary,
+              color: const Color.fromARGB(255, 177, 177, 177),
             ),
             child: Center(
               child: IconButton(
@@ -35,13 +35,13 @@ class _ButtonLikeWidgetState extends State<ButtonLikeWidget> {
                 icon: _isLiked
                     ? const Icon(
                         Icons.favorite_border_outlined,
-                        color: AppColors.white,
-                        size: 14,
+                        color: AppColors.secondary,
+                        size: 16,
                       )
                     : const Icon(
                         Icons.favorite,
                         color: AppColors.primary,
-                        size: 14,
+                        size: 16,
                       ),
               ),
             )),

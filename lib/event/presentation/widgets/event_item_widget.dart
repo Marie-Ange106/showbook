@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:showbook/event/data/models/event_model.dart';
 
 import '../../../shared/utils/app_colors.dart';
 import '../../../shared/widgets/button_like_widget.dart';
 import '../../../shared/widgets/button_price.dart';
 
 class EventItemWidget extends StatelessWidget {
-  final String title;
-  final String description;
-  final String location;
-  final String category;
-  final String? date;
-  final String path;
+  final EventModel eventModel;
   const EventItemWidget({
     super.key,
-    required this.category,
-    required this.path,
-    required this.title,
-    required this.description,
-    required this.location,
-    required this.date,
+    required this.eventModel,
   });
 
   @override
@@ -53,29 +44,29 @@ class EventItemWidget extends StatelessWidget {
             Stack(
               alignment: AlignmentDirectional.topEnd,
               children: [
-                Hero(
-                  tag: 'event-image-$path',
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: 122,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.circular(10),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: Image(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(path),
-                        ),
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: 122,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadiusDirectional.circular(10),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: Image(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            'http://192.168.28.229:8000/storage/${eventModel.pathImage}'),
                       ),
                     ),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 10),
-                  child: ButtonPriceWidget(price: 'Free',),
+                  child: ButtonPriceWidget(
+                    price: 'Free',
+                  ),
                 )
               ],
             ),
@@ -94,7 +85,7 @@ class EventItemWidget extends StatelessWidget {
                         RichText(
                           text: TextSpan(children: <TextSpan>[
                             TextSpan(
-                              text: date,
+                              text: eventModel.startDate,
                               style: const TextStyle(
                                 color: Colors.red,
                                 fontSize: 12,
@@ -103,15 +94,15 @@ class EventItemWidget extends StatelessWidget {
                           ]),
                         ),
                         Text(
-                          title,
+                          eventModel.title,
                           style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 16,
                           ),
                         ),
                         Text(
-                          category,
-                          style:const TextStyle(
+                          eventModel.categories.first.name,
+                          style: const TextStyle(
                             fontSize: 12,
                           ),
                         ),
@@ -126,7 +117,7 @@ class EventItemWidget extends StatelessWidget {
                           size: 14,
                         ),
                         Text(
-                          location,
+                          eventModel.location.name,
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w100,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:showbook/event/data/models/event_model.dart';
+import 'package:showbook/favorite_event/business_logic/cubit/favorite_cubit.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/shared/widgets/button_widget.dart';
 
@@ -105,26 +106,31 @@ class _DetailEventScreenState extends State<DetailEventScreen> {
           appBar: AppBar(
             title: const Text('Détail '),
             actions: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    if (state.errorTcheckUser) {
-                      _showLoginDialog(
-                        context,
-                        'You must login to add event',
-                      ); // affiche la boîte de dialogue de connexion
-                    } else if (state.sucessTcheckUser) {
-                      getIt.get<EventCubit>().likeEvent(id: widget.event.id);
-                      _isLiked = !_isLiked;
-                    }
-                  });
-                },
-                icon: _isLiked
-                    ? const Icon(
-                        Icons.favorite,
-                        color: AppColors.primary,
-                      )
-                    : const Icon(Icons.favorite_border_outlined),
+              SizedBox(
+                child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (state.errorTcheckUser) {
+                        _showLoginDialog(
+                          context,
+                          'You must login to like event',
+                        ); // affiche la boîte de dialogue de connexion
+                      } else if (state.sucessTcheckUser) {
+                        getIt.get<EventCubit>().likeEvent(id: widget.event.id);
+                        getIt.get<FavoriteCubit>().addEventInFavorite(
+                              widget.event,
+                            );
+                        _isLiked = !_isLiked;
+                      }
+                    });
+                  },
+                  icon: _isLiked
+                      ? const Icon(
+                          Icons.favorite,
+                          color: AppColors.primary,
+                        )
+                      : const Icon(Icons.favorite_border_outlined),
+                ),
               ),
               IconButton(
                 onPressed: () {
@@ -180,23 +186,20 @@ class _DetailEventScreenState extends State<DetailEventScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Hero(
-                    tag: 'event-image-${widget.event.pathImage}',
-                    child: Container(
-                      height: 230,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: AspectRatio(
-                          aspectRatio: 16 / 9,
-                          child: Image(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              'http://192.168.28.229:8000/storage/${widget.event.pathImage}',
-                            ),
+                  Container(
+                    height: 230,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            'http://192.168.28.229:8000/storage/${widget.event.pathImage}',
                           ),
                         ),
                       ),

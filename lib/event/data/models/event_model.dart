@@ -67,4 +67,5 @@ class EventModel {
           .map((guest) => ProfilModel.fromJson(guest))),
     );
   }
+
 }

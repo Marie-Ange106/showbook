@@ -107,97 +107,94 @@ class ArtistItemWidget extends StatelessWidget {
                 onTap: () {
                   context.router.push(DetailProfilRoute(profil: profil));
                 },
-                child: Hero(
-                  tag: profil,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Stack(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      children: [
-                        Container(
-                          height: 170,
-                          width: 160,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color.fromARGB(35, 128, 129, 128),
-                                offset: Offset(
-                                  5.0,
-                                  5.0,
-                                ),
-                                blurRadius: 10.0,
-                                spreadRadius: 2.0,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      Container(
+                        height: 170,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color.fromARGB(35, 128, 129, 128),
+                              offset: Offset(
+                                5.0,
+                                5.0,
                               ),
-                              BoxShadow(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                offset: Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
+                              blurRadius: 10.0,
+                              spreadRadius: 2.0,
+                            ),
+                            BoxShadow(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              offset: Offset(0.0, 0.0),
+                              blurRadius: 0.0,
+                              spreadRadius: 0.0,
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Image(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                'http://192.168.28.229:8000/storage/${profil.imagePath}',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 170,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          color: AppColors.secondary.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                profil.name,
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                    color: AppColors.white),
+                              ),
+                              Text(
+                                '${profil.follower} Followers',
+                                style: const TextStyle(
+                                    // fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                    color: AppColors.white),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ButtonWidget(
+                                borderColor: AppColors.primary,
+                                bgColor: AppColors.primary,
+                                height: 30,
+                                width: 100,
+                                text: 'Follow',
+                                textColor: AppColors.white,
+                                fontSize: 12,
+                                onPressed: () {},
                               ),
                             ],
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: AspectRatio(
-                              aspectRatio: 16 / 9,
-                              child: Image(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  'http://192.168.28.229:8000/storage/${profil.imagePath}',
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
-                        Container(
-                          height: 170,
-                          width: 160,
-                          decoration: BoxDecoration(
-                            color: AppColors.secondary.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 50),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  profil.name,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 16,
-                                      color: AppColors.white),
-                                ),
-                                Text(
-                                  '${profil.follower} Followers',
-                                  style: const TextStyle(
-                                      // fontWeight: FontWeight.w900,
-                                      fontSize: 16,
-                                      color: AppColors.white),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ButtonWidget(
-                                  borderColor: AppColors.primary,
-                                  bgColor: AppColors.primary,
-                                  height: 30,
-                                  width: 100,
-                                  text: 'Follow',
-                                  textColor: AppColors.white,
-                                  fontSize: 12,
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               );

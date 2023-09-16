@@ -5,6 +5,7 @@ import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:showbook/category/business_logic/cubit/category_cubit.dart';
 import 'package:showbook/comment/business_logic/cubit/comment_cubit.dart';
 import 'package:showbook/event/business_logic/cubit/event_cubit.dart';
+import 'package:showbook/favorite_event/business_logic/cubit/favorite_cubit.dart';
 import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
 import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/service_locator.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<UserCubit>(
           create: (context) => getIt.get<UserCubit>(),
+        ),
+        BlocProvider<FavoriteCubit>(
+          create: (context) => getIt.get<FavoriteCubit>(),
         ),
       ],
       child: MaterialApp.router(

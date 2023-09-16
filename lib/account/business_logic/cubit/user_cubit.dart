@@ -22,6 +22,7 @@ class UserCubit extends Cubit<UserState> {
 
   addProfilFollowed(ProfilModel profil) {
     List<ProfilModel> profils = [...state.profilFollow];
+
     profils.add(profil);
     emit(
       state.copyWith(

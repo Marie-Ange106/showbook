@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showbook/account/business_logic/cubit/user_cubit.dart';
 import 'package:showbook/comment/data/comment_repository.dart';
+import 'package:showbook/favorite_event/business_logic/cubit/favorite_cubit.dart';
 import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
 import 'package:showbook/location/data/location_repository.dart';
 
@@ -102,5 +103,9 @@ void setupLocator() {
 
   getIt.registerSingleton<UserCubit>(
     UserCubit(),
+  );
+
+  getIt.registerSingleton<FavoriteCubit>(
+    FavoriteCubit(),
   );
 }
