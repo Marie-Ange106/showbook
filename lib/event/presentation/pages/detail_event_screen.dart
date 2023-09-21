@@ -5,6 +5,7 @@ import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:showbook/event/data/models/event_model.dart';
 import 'package:showbook/favorite_event/business_logic/cubit/favorite_cubit.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
+import 'package:showbook/shared/utils/parse_date.dart';
 import 'package:showbook/shared/widgets/button_widget.dart';
 
 import '../../../comment/business_logic/cubit/comment_cubit.dart';
@@ -134,7 +135,9 @@ class _DetailEventScreenState extends State<DetailEventScreen> {
               ),
               IconButton(
                 onPressed: () {
-                  if (!_isBottomSheetOpen && state.sucessTcheckUser) {
+                  if (!_isBottomSheetOpen && state.sucessTcheckUser ||
+                      !_isBottomSheetOpen && state.sucessLoginging ||
+                      !_isBottomSheetOpen && state.sucessRegistering) {
                     _openBottomSheet(context);
                   } else if (state.errorTcheckUser) {
                     _showLoginDialog(
@@ -199,7 +202,7 @@ class _DetailEventScreenState extends State<DetailEventScreen> {
                         child: Image(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            'http://192.168.28.229:8000/storage/${widget.event.pathImage}',
+                            'https://nvxubcejz.preview.infomaniak.website/storage/${widget.event.pathImage}',
                           ),
                         ),
                       ),
@@ -244,7 +247,7 @@ class _DetailEventScreenState extends State<DetailEventScreen> {
                                 ),
                               ),
                               Text(
-                                widget.event.startDate,
+                                Convertion().dateTime(widget.event.startDate),
                                 style: const TextStyle(
                                   fontSize: 14,
                                 ),
@@ -406,13 +409,22 @@ class _DetailEventScreenState extends State<DetailEventScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  '${widget.event.price.toString()} FCFA',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                if (widget.event.price == null)
+                  const Text(
+                    'Free',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                else
+                  Text(
+                    '${widget.event.price.toString()} FCFA',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
                 const ButtonWidget(
                   text: 'Reserve a ticket',
                   textColor: AppColors.white,

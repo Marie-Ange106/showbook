@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showbook/event/data/models/event_model.dart';
 import 'package:showbook/event/presentation/widgets/event_item_widget.dart';
 import 'package:showbook/favorite_event/business_logic/cubit/favorite_cubit.dart';
+import 'package:showbook/shared/routes/routes.gr.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/shared/widgets/vertical_menu.dart';
 
@@ -42,8 +43,15 @@ class _MyEventScreenState extends State<FavoriteEVentScreen> {
               // FollowedListScreen.totalProfil = state.profilFollow.length;
               return Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
-                child: EventItemWidget(
-                  eventModel: event,
+                child: GestureDetector(
+                  onTap: () {
+                    context.router.push(
+                      DetailEventRoute(event: event),
+                    );
+                  },
+                  child: EventItemWidget(
+                    eventModel: event,
+                  ),
                 ),
               );
             },

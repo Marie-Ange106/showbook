@@ -1,4 +1,5 @@
 import 'package:showbook/event/data/models/event_model.dart';
+import 'package:showbook/profil/data/models/type_profil_model.dart';
 
 import '../../../auth/data/user_model.dart';
 import 'follow_pivot_model.dart';
@@ -21,6 +22,7 @@ class ProfilModel {
   int? follower;
   List<EventModel>? eventsInvited;
   List<EventModel>? eventsOrganized;
+  TypeModel type;
 
   final List<FollowerModel?> followers;
 
@@ -42,6 +44,7 @@ class ProfilModel {
     this.eventsInvited,
     this.eventsOrganized,
     required this.followers,
+    required this.type,
   });
 
   factory ProfilModel.fromJson(Map<String, dynamic> json) {
@@ -79,6 +82,7 @@ class ProfilModel {
               .map((e) => FollowerModel.fromJson(e))
               .toList()
           : [],
+      type: TypeModel.fromJson(json['type'] as Map<String, dynamic>),
     );
   }
 
@@ -105,7 +109,7 @@ class ProfilModel {
       FollowerModel(
         pivot: FollowPivotModel(profilId: id, userId: user.id),
         id: id,
-        name: name, 
+        name: name,
         email: user.email,
         emailVerifiedAt: user.emailVerifiedAt,
         createdAt: user.createdAt,

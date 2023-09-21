@@ -23,7 +23,7 @@ class FollowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfilCubit, ProfilState>(
       builder: (context, state) {
-        return GestureDetector(
+        return GestureDetector( 
           onTap: () {
             if (user != null) {
               if (profilModel.isFollowBy(

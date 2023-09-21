@@ -19,6 +19,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           // bloc: getIt.get<AuthCubit>()..getUser(),
           builder: (context, state) {
             var user = state.user;
-            
+
             return Stack(
               children: [
                 Container(
@@ -98,7 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 50,
+                                height: 15,
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(15),
@@ -108,9 +110,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const ItemSettingWidget(
-                                        name: 'Edit Profil',
-                                        icon: Icons.edit,
+                                      GestureDetector(
+                                        onTap: () {
+                                          context.router
+                                              .push(UserInfoRoute(user: user));
+                                        },
+                                        child: const ItemSettingWidget(
+                                          name: 'Edit Profil',
+                                          icon: Icons.edit,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          context.router.push(
+                                              UpdatePwdRoute(userId: user.id));
+                                        },
+                                        child: const ItemSettingWidget(
+                                          name: 'Change my password',
+                                          icon: Icons.edit,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          context.router.push(DeleteAccountRoute(userId: user.id));
+                                        },
+                                        child: const ItemSettingWidget(
+                                          name: 'Delete my account',
+                                          icon: Icons.delete,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: const ItemSettingWidget(
+                                          name: 'Manage an event',
+                                          icon: Icons.calendar_month,
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -127,11 +170,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         icon: Icons.dark_mode,
                                       ),
                                       const SizedBox(
-                                        height: 100,
+                                        height: 20,
                                       ),
                                       GestureDetector(
                                         onTap: () {
                                           getIt.get<AuthRepository>().logout();
+                                          getIt.get<AuthCubit>().getUser();
+                                          context.router.push(
+                                            const ApplicationRoute(),
+                                          );
                                         },
                                         child: const ItemSettingWidget(
                                           width: 100,

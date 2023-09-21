@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:showbook/service_locator.dart';
 
 import 'package:showbook/shared/routes/routes.gr.dart';
 
@@ -49,14 +48,16 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           }
           if (state.sucessLoginging) {
+            var user = state.user;
+            
             context.router.pushAndPopUntil(
               const ApplicationRoute(),
               predicate: (_) => false,
             );
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
+              SnackBar(
                 content: Text(
-                  'Welcome!',
+                  'Welcome! ${user!.name}',
                 ),
               ),
             );
@@ -139,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           email: _emailController.text,
                                           password: _passwwdController.text,
                                         );
-                                    getIt.get<AuthCubit>().getUser();
+                                    // getIt.get<AuthCubit>().getUser();
                                   }
                                 },
                                 child: ButtonWidget(

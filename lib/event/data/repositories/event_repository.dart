@@ -77,24 +77,30 @@ class EventRepository {
     var token = prefs.getString('token');
     // Convertir la File en MultipartFile
     final imageFile = await MultipartFile.fromFile(image.path);
+    // Créer un objet FormData
+  FormData formData = FormData.fromMap({
+    'title': title,
+    'description': description,
+    'image': imageFile,
+    'number_space': numberSpace,
+    'start_date': startDate,
+    // .toIso8601String()
+    'end_date': endDate ?? '',
+    'price': price ?? '',
+    'organiser_id': organiserId,
+    'location_id': locationId,
+    'categories': categories,
+    'guests': guests ?? '',
+  });
     Response response = await dio.post(
       '/api/showbook/event',
-      data: {
-        'title': title,
-        'description': description,
-        'image': imageFile,
-        'number_space': numberSpace,
-        'start_date': startDate,
-        'end_date': endDate,
-        'organiser_id': organiserId,
-        'location_id': locationId,
-      },
+      data: formData,
       options: Options(headers: {
         'Authorization': 'Bearer $token',
       }),
     );
     var data = response.data["event"];
-    // print(data);
+    print(data);
 
     return EventModel.fromJson(data);
   }

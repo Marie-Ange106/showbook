@@ -6,6 +6,8 @@ import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/shared/widgets/button_widget.dart';
 
 import '../../auth/business_logic/cubit/auth_cubit.dart';
+import '../../auth/data/auth_repository.dart';
+import '../../service_locator.dart';
 
 @RoutePage()
 class VerticalMenuScreen extends StatelessWidget {
@@ -212,12 +214,13 @@ class VerticalMenuScreen extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    if (state.errorTcheckUser) {
-                      Navigator.pop(context); // ferme le drawer
-                      _showLoginDialog(
-                          context); // affiche la boîte de dialogue de connexion
-                    } else if (state.sucessTcheckUser) {
+                    if (state.sucessTcheckUser ||
+                        state.sucessLoginging ||
+                        state.sucessRegistering) {
                       context.router.push(const AddEventRoute());
+                    } else {
+                      Navigator.pop(context); // ferme le drawer
+                      _showLoginDialog(context);
                     }
                   },
                   child: const Stack(
@@ -246,10 +249,16 @@ class VerticalMenuScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              if (state.sucessTcheckUser)
+              if (state.sucessTcheckUser ||
+                  state.sucessLoginging ||
+                  state.sucessRegistering)
                 GestureDetector(
                   onTap: () {
-                    context.router.push(const LoginRoute());
+                    getIt.get<AuthRepository>().logout();
+                    getIt.get<AuthCubit>().getUser();
+                    context.router.push(
+                      const ApplicationRoute(),
+                    );
                   },
                   child: const ButtonWidget(
                     text: 'Logout',
@@ -258,8 +267,8 @@ class VerticalMenuScreen extends StatelessWidget {
                     width: 235,
                     fontSize: 14,
                   ),
-                ),
-              if (state.errorTcheckUser)
+                )
+              else
                 GestureDetector(
                   onTap: () {
                     context.router.push(const LoginRoute());
@@ -268,7 +277,7 @@ class VerticalMenuScreen extends StatelessWidget {
                     text: 'Login',
                     borderColor: AppColors.tertiary,
                     height: 40,
-                    width: 200,
+                    width: 235,
                     fontSize: 14,
                   ),
                 )

@@ -47,13 +47,13 @@ class _SplashScreenState extends State<SplashScreen>
       listener: (context, state) {
         if (state.errorTcheckUser) {
           // context.router.push(const HomeRoute());
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                state.message.toString(),
-              ),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     content: Text(
+          //       state.message.toString(),
+          //     ),
+          //   ),
+          // );
         }
         if (state.sucessTcheckUser) {
           // context.router.push(const HomeRoute());

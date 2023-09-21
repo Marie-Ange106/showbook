@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:showbook/auth/business_logic/cubit/auth_cubit.dart';
 import 'package:showbook/event/business_logic/cubit/event_cubit.dart';
 import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/shared/pages/home_screen.dart';
@@ -13,7 +14,7 @@ import 'package:showbook/search/presentation/pages/search_screen.dart';
 @RoutePage()
 class ApplicationScreen extends StatefulWidget {
   static int indexSearch = 0;
-  static String statutSearch ='';
+  static String statutSearch = '';
   const ApplicationScreen({super.key});
 
   @override
@@ -46,7 +47,7 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
         // title: ("Home"),
         onPressed: (_) {
           _controller.index = 1;
-          ApplicationScreen.statutSearch='search';
+          ApplicationScreen.statutSearch = 'search';
           getIt.get<EventCubit>().getEvent();
           getIt.get<ProfilCubit>().getProfil();
         },
@@ -70,15 +71,14 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
 
   @override
   void initState() {
+    getIt.get<AuthCubit>().getUser();
     // gérer la redirection vers la seacrh page
     _controller = PersistentTabController();
     if (ApplicationScreen.indexSearch == 1) {
       _controller.index = ApplicationScreen.indexSearch;
+    } else if (_controller.index != 1) {
+      getIt.get<EventCubit>().getEvent();
     }
-    // else if (_controller.index != 1) {
-    //   getIt.get<EventCubit>().getEvent();
-    // }
-    
 
     super.initState();
   }

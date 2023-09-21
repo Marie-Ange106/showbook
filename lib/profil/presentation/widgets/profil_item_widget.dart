@@ -33,7 +33,7 @@ class ProfilWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: Image.network(
-                    'http://192.168.28.229:8000/storage/${profilModel.imagePath}',
+                    'https://nvxubcejz.preview.infomaniak.website/storage/${profilModel.imagePath}',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -50,9 +50,9 @@ class ProfilWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'type',
-                            style: TextStyle(
+                          Text(
+                            profilModel.type.name,
+                            style: const TextStyle(
                               fontSize: 14,
                               color: AppColors.primary,
                               fontWeight: FontWeight.w900,

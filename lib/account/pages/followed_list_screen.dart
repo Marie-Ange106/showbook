@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showbook/account/business_logic/cubit/user_cubit.dart';
 import 'package:showbook/profil/data/models/profil_model.dart';
 import 'package:showbook/profil/presentation/widgets/profil_item_widget.dart';
+import 'package:showbook/shared/routes/routes.gr.dart';
 
 @RoutePage()
 class FollowedListScreen extends StatefulWidget {
@@ -30,7 +31,14 @@ class FollowedListScreenState extends State<FollowedListScreen> {
               // FollowedListScreen.totalProfil = state.profilFollow.length;
               return Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
-                child: ProfilWidget(profilModel: profil),
+                child: GestureDetector(
+                  onTap: () {
+                    context.router.push(
+                      DetailProfilRoute(profil: profil),
+                    );
+                  },
+                  child: ProfilWidget(profilModel: profil),
+                ),
               );
             },
           );

@@ -22,9 +22,12 @@ class _ForYouScreenState extends State<ForYouScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, top: 20, bottom: 15),
+      padding: const EdgeInsets.only(left: 15),
       child: ListView(
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           // featured events
           const SizedBox(
             height: 300,
@@ -120,48 +123,51 @@ class _ForYouScreenState extends State<ForYouScreen> {
               const ArtistItemWidget(),
             ],
           ),
+          const SizedBox(
+            height: 20,
+          ),
           // events near you
-          SizedBox(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Events near you',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: const Text(
-                        'See all',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                //   for (int i = 0; i <= 5; i++)
-                //     const Padding(
-                //       padding: EdgeInsets.only(top: 20),
-                //       child: EventItemWidget(
-                //           // category: category,
-                //           title: title,
-                //           description: description,
-                //           location: location,
-                //           date: date),
-                //     ),
-              ],
-            ),
-          )
+          // SizedBox(
+          //   child: Column(
+          //     children: [
+          //       const SizedBox(
+          //         height: 20,
+          //       ),
+          //       Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: [
+          //           const Text(
+          //             'Events near you',
+          //             style: TextStyle(
+          //               fontSize: 16,
+          //               fontWeight: FontWeight.w900,
+          //             ),
+          //           ),
+          //           GestureDetector(
+          //             onTap: () {},
+          //             child: const Text(
+          //               'See all',
+          //               style: TextStyle(
+          //                 fontSize: 12,
+          //                 color: AppColors.primary,
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //       //   for (int i = 0; i <= 5; i++)
+          //       //     const Padding(
+          //       //       padding: EdgeInsets.only(top: 20),
+          //       //       child: EventItemWidget(
+          //       //           // category: category,
+          //       //           title: title,
+          //       //           description: description,
+          //       //           location: location,
+          //       //           date: date),
+          //       //     ),
+          //     ],
+          //   ),
+          // )
         ],
       ),
     );

@@ -186,6 +186,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       email: _emailController.text,
                                       password: _passwwdController.text,
                                     );
+                                    // context.read<AuthCubit>().getUser();
                               }
                             },
                             child: ButtonWidget(

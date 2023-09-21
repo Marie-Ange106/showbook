@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:showbook/event/data/models/event_model.dart';
 
+
 part 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
@@ -23,9 +24,9 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     );
   }
 
-  removeEventInFavorite(EventModel profil) {
+  removeEventInFavorite(EventModel event) {
     List<EventModel> events = [...state.favoriteEvents];
-    events.remove(profil);
+    events.remove(event);
     emit(
       state.copyWith(
         favoriteEvents: events,
@@ -33,6 +34,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       ),
     );
   } 
+
+  
   
       
 }

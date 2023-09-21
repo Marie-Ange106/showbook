@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showbook/account/business_logic/cubit/user_cubit.dart';
+import 'package:showbook/account/data/user_repository.dart';
 import 'package:showbook/comment/data/comment_repository.dart';
 import 'package:showbook/favorite_event/business_logic/cubit/favorite_cubit.dart';
 import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
@@ -26,7 +27,8 @@ void setupLocator() {
 
   getIt.registerSingleton<Dio>(
     Dio(BaseOptions(
-      baseUrl: 'http://192.168.28.229:8000',
+      // baseUrl: 'https://nvxubcejz.preview.infomaniak.website',
+      baseUrl: 'http://192.168.100.140:8000',
     )),
   );
 
@@ -101,8 +103,16 @@ void setupLocator() {
     ),
   );
 
+  getIt.registerSingleton<UserRepository>(
+    UserRepository(
+      dio: getIt.get<Dio>(),
+    ),
+  );
+
   getIt.registerSingleton<UserCubit>(
-    UserCubit(),
+    UserCubit(
+      userRepository: getIt.get<UserRepository>(),
+    ),
   );
 
   getIt.registerSingleton<FavoriteCubit>(

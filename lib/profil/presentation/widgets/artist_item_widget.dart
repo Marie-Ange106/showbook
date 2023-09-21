@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
+import 'package:showbook/profil/data/models/profil_model.dart';
 import 'package:showbook/service_locator.dart';
 import 'package:showbook/shared/routes/routes.gr.dart';
 
@@ -96,13 +97,20 @@ class ArtistItemWidget extends StatelessWidget {
         }
 
         var profils = state.profils!;
-
+        // trier les artists
+        List<ProfilModel> artists = [];
+        for (var profil in profils) {
+          if (profil.type.name == 'Artist') {
+            artists.add(profil);
+          }
+        }
         return SizedBox(
           height: 180,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
+            itemCount: artists.length,
             itemBuilder: (context, index) {
-              var profil = profils[index];
+              var profil = artists[index];
               return GestureDetector(
                 onTap: () {
                   context.router.push(DetailProfilRoute(profil: profil));
@@ -142,7 +150,7 @@ class ArtistItemWidget extends StatelessWidget {
                             child: Image(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                'http://192.168.28.229:8000/storage/${profil.imagePath}',
+                                'https://nvxubcejz.preview.infomaniak.website/storage/${profil.imagePath}',
                               ),
                             ),
                           ),
@@ -199,7 +207,6 @@ class ArtistItemWidget extends StatelessWidget {
                 ),
               );
             },
-            itemCount: profils.length,
           ),
         );
       },

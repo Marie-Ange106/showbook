@@ -8,6 +8,7 @@ class CategoryRepository {
 
   Future<List<CategoryModel>> getCategory() async {
     Response response =
+    
         await dio.get('/api/showbook/category');
         
     var data = response.data["categories"];

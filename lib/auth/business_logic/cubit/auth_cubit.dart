@@ -20,6 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(
           isLoginging: true,
           sucessLoginging: false,
+          sucessTcheckUser: false,
           errorLoginging: false,
         ),
       );
@@ -32,6 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
           user: user,
           isLoginging: false,
           sucessLoginging: true,
+          sucessTcheckUser: true,
           errorLoginging: false,
         ),
       );
@@ -40,8 +42,9 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(
           isLoginging: false,
           sucessLoginging: false,
+          sucessTcheckUser: false,
           errorLoginging: true,
-          message: e.toString(),
+          message: 'Incorrect email or password',
         ),
       );
     }
@@ -57,6 +60,7 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(
           isRegistering: true,
           sucessRegistering: false,
+          sucessTcheckUser: false,
           errorRegistering: false,
         ),
       );
@@ -70,6 +74,7 @@ class AuthCubit extends Cubit<AuthState> {
           user: user,
           isRegistering: false,
           sucessRegistering: true,
+          sucessTcheckUser: true,
           errorRegistering: false,
         ),
       );
@@ -78,6 +83,7 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(
           isRegistering: false,
           sucessRegistering: false,
+          sucessTcheckUser: false,
           errorRegistering: true,
           message: e.toString(),
         ),
@@ -91,6 +97,8 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(
           isCheckingUser: true,
           sucessTcheckUser: false,
+          sucessLoginging: false,
+          sucessRegistering: false,
           errorTcheckUser: false,
         ),
       );
@@ -99,6 +107,8 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(
           user: user,
           sucessTcheckUser: true,
+          sucessLoginging: true,
+          sucessRegistering: true,
           isCheckingUser: false,
           errorTcheckUser: false,
         ),
@@ -109,6 +119,8 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(
           sucessTcheckUser: false,
           isCheckingUser: false,
+          sucessLoginging: false,
+          sucessRegistering: false,
           errorTcheckUser: true,
         ),
       );

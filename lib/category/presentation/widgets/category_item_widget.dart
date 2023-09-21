@@ -105,7 +105,8 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                 child: Column(
                   children: [
                     SvgPicture.network(
-                      'http://192.168.28.229:8000/storage/${category.imagePath}',
+                      'https://nvxubcejz.preview.infomaniak.website/storage/${category.imagePath}',
+                      
                       height: 40,
                       width: 40,
                       color: AppColors.primary,

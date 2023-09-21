@@ -149,7 +149,7 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image.network(
-                                    'http://192.168.28.229:8000/storage/${widget.profil.imagePath}',
+                                    'https://nvxubcejz.preview.infomaniak.website/storage/${widget.profil.imagePath}',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -343,7 +343,7 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
                       Column(
                         children: [
                           SizedBox(
-                            height: 100,
+                            height: 200,
                             child: TabBarView(
                               controller: _tabController,
                               children: [

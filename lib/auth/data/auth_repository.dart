@@ -11,7 +11,7 @@ class AuthRepository {
 
   // login****************************
 
-  Future<UserModel> login({
+  Future login({
     required String email,
     required String password,
   }) async {
@@ -29,6 +29,9 @@ class AuthRepository {
       var prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
     }
+    if (data['message'] == 'identifiant incorrect') {
+      return data['message'];
+    }
 
     return UserModel.fromJson(data['user']);
   }
@@ -43,7 +46,7 @@ class AuthRepository {
     Response response = await dio.post(
       '/api/showbook/auth/register',
       data: {
-        'name': name,
+        'name': name, 
         'email': email,
         'password': password,
       },

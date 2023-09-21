@@ -1,3 +1,5 @@
+
+
 class UserModel {
   int id;
   String name;
@@ -5,6 +7,7 @@ class UserModel {
   DateTime? emailVerifiedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
+  // List<LikeModel>? likes;
 
   UserModel({
     required this.name,
@@ -13,6 +16,7 @@ class UserModel {
     this.emailVerifiedAt,
     this.createdAt,
     this.updatedAt,
+    // this.likes,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +29,40 @@ class UserModel {
           : null,
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
+      // likes: json['likes'] != null
+      //     ? (json['likes'] as List<dynamic>)
+      //         .map((e) => LikeModel.fromJson(e))
+      //         .toList()
+      //     : [],
     );
   }
+
+  // bool isLikeBy({required int userId}) {
+  //   for (var like in likes!) {
+  //     if (like.userId == userId) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
+
+  // void removeLike({required int eventId, required int uId}) {
+  //   for (var ele in likes!) {
+  //     if (ele.eventId == eventId && ele.userId == uId) {
+  //       likes!.remove(ele);
+  //       break;
+  //     }
+  //   }
+  // }
+
+  // void addLike({required UserModel user, required EventModel event}) {
+  //   likes!.add(
+  //     LikeModel(
+  //       userId: user.id,
+  //       eventId: event.id,
+  //     ),
+  //   );
+  //   // print(followers);
+  // }
+  
 }

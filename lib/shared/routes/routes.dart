@@ -65,5 +65,14 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: AddEventRoute.page,
         ),
+        AutoRoute(
+          page: UserInfoRoute.page,
+        ),
+        AutoRoute(
+          page: UpdatePwdRoute.page,
+        ),
+        AutoRoute(
+          page: DeleteAccountRoute.page,
+        ),
       ];
 }

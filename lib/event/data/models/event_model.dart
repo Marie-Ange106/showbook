@@ -8,8 +8,8 @@ class EventModel {
   String description;
   String pathImage;
   int numberSpace;
-  String startDate;
-  String? endDate;
+  DateTime startDate;
+  DateTime? endDate;
   int organiserId;
   int userId;
   int locationId;
@@ -21,6 +21,7 @@ class EventModel {
   ProfilModel? organizer;
   List<ProfilModel>? guests;
   int? price;
+  int featured;
 
   EventModel({
     required this.id,
@@ -38,9 +39,10 @@ class EventModel {
     required this.updatedAt,
     required this.categories,
     required this.location,
-     this.organizer,
+    this.organizer,
     this.guests,
     this.price,
+    required this.featured,
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
@@ -50,8 +52,10 @@ class EventModel {
       description: json['description'],
       pathImage: json['path_image'],
       numberSpace: json['number_space'],
-      startDate: json['start_date'],
-      endDate: json['end_date'],
+      startDate: DateTime.parse(json['start_date']),
+      endDate:
+          json['end_date'] != null ? DateTime.parse(json['end_date']) : null,
+      // endDate: DateTime.parse(json['end_date']),
       organiserId: json['organizer_id'],
       userId: json['user_id'],
       locationId: json['location_id'],
@@ -61,11 +65,13 @@ class EventModel {
       updatedAt: json['updated_at'],
       categories: List<CategoryModel>.from(json['categories']
           .map((category) => CategoryModel.fromJson(category))),
-      location: LocationModel.fromJson(json['location'] as Map<String, dynamic> ),
-      organizer: ProfilModel.fromJson(json['organizer'] as Map<String, dynamic> ),
-      guests: List<ProfilModel>.from(json['guests']
-          .map((guest) => ProfilModel.fromJson(guest))),
+      location:
+          LocationModel.fromJson(json['location'] as Map<String, dynamic>),
+      organizer:
+          ProfilModel.fromJson(json['organizer'] as Map<String, dynamic>),
+      guests: List<ProfilModel>.from(
+          json['guests'].map((guest) => ProfilModel.fromJson(guest))),
+      featured: json['featured'],
     );
   }
-
 }

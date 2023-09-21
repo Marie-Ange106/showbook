@@ -77,6 +77,7 @@ class _InputWidgetState extends State<InputWidget> {
         ),
         TextFormField(
           // maxLines: widget.maxLines,
+          
           controller: widget.controller,
           keyboardType: widget.keyboardType,
           obscureText: widget.obscureText,
@@ -85,6 +86,7 @@ class _InputWidgetState extends State<InputWidget> {
           showCursor: widget.showCursor,
           textInputAction: widget.textInputAction,
           decoration: InputDecoration(
+            
             labelText: widget.placeholder,
             contentPadding: widget.contentPadding,
             label: widget.labelDecoration,
