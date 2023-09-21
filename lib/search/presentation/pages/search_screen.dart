@@ -22,6 +22,8 @@ class _SearchScreenState extends State<SearchScreen>
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   bool _isBottomSheetOpen = false;
+  bool _inputNonVide = false;
+  final _commentFocusNode = FocusNode();
 
   void _openBottomSheet(BuildContext context) {
     setState(() {
@@ -48,7 +50,14 @@ class _SearchScreenState extends State<SearchScreen>
     if (SearchScreen.indexTab == 1) {
       _tabController.index = SearchScreen.indexTab;
     }
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -85,12 +94,18 @@ class _SearchScreenState extends State<SearchScreen>
                 Expanded(
                   child: TextFormField(
                     controller: _searchController,
+                    focusNode: _commentFocusNode,
                     decoration: const InputDecoration(
                       hintText: 'Search...',
                       border: InputBorder.none,
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        _inputNonVide = value.isNotEmpty;
+                      });
+                    },
                     onFieldSubmitted: (value) {
                       getIt.get<EventCubit>().getEvent(
                             keyword: value,
@@ -101,22 +116,24 @@ class _SearchScreenState extends State<SearchScreen>
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.grey[500],
-                    ),
-                    onPressed: () {},
-                  ),
+                  child: _inputNonVide
+                      ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            setState(() {
+                              _inputNonVide = false;
+                              _searchController.clear();
+                              getIt.get<EventCubit>().getEvent();
+                              getIt.get<ProfilCubit>().getProfil();
+                            });
+                          },
+                        )
+                      : IconButton(
+                          icon: const Icon(Icons.search),
+                          color: Colors.grey[500],
+                          onPressed: () {},
+                        ),
                 ),
-                // IconButton(
-                //   icon: const Icon(Icons.clear),
-                //   onPressed: () {
-                //     setState(() {
-                //       _searchController.clear();
-                //     });
-                //   },
-                // ),
               ],
             ),
           ),

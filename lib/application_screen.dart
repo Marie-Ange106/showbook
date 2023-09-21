@@ -76,9 +76,10 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
     _controller = PersistentTabController();
     if (ApplicationScreen.indexSearch == 1) {
       _controller.index = ApplicationScreen.indexSearch;
-    } else if (_controller.index != 1) {
-      getIt.get<EventCubit>().getEvent();
     }
+    //  else if (_controller.index != 1) {
+    //   getIt.get<EventCubit>().getEvent();
+    // }
 
     super.initState();
   }
