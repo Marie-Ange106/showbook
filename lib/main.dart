@@ -10,9 +10,11 @@ import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
 import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/service_locator.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
+import 'shared/connectivity/cubit/internet_cubit.dart';
 import 'shared/routes/routes.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   runApp(MyApp());
 }
@@ -50,16 +52,42 @@ class MyApp extends StatelessWidget {
         BlocProvider<FavoriteCubit>(
           create: (context) => getIt.get<FavoriteCubit>(),
         ),
+        BlocProvider<InternetCubit>(
+          create: (context) => getIt.get<InternetCubit>(),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: _appRouter.config(),
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
+        // themeMode: ThemeMode.light,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.white),
           useMaterial3: true,
         ),
-        // home: const LoginScreen(),
+        // builder: (context, child) {
+        //   return BlocListener<InternetCubit, InternetState>(
+        //     listener: (context, state) {
+        //       if (state.disconnected) {
+        //         ScaffoldMessenger.of(context).showSnackBar(
+        //           const SnackBar(
+        //             content: Text(
+        //               'No internet',
+        //             ),
+        //           ),
+        //         );
+        //       }
+        //       ScaffoldMessenger.of(context).showSnackBar(
+        //         const SnackBar(
+        //           content: Text(
+        //             'No internet',
+        //           ),
+        //         ),
+        //       );
+        //     },
+        //     child: Container(),
+        //   );
+        // }
       ),
     );
   }

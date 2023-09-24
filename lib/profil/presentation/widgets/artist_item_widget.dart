@@ -81,18 +81,8 @@ class ArtistItemWidget extends StatelessWidget {
         }
 
         if (state.errorLoadingProfil) {
-          return Column(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  getIt.get<ProfilCubit>().getProfil();
-                },
-                child: const Center(
-                  child: Text('Try again'),
-                ),
-              ),
-              Text('${state.message}')
-            ],
+          return Center(
+            child: Text("An error has occurred"),
           );
         }
 

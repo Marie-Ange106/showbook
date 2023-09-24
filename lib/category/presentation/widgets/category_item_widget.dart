@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:showbook/category/business_logic/cubit/category_cubit.dart';
 import 'package:showbook/service_locator.dart';
@@ -24,7 +25,7 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryCubit, CategoryState>(
-      bloc: getIt.get<CategoryCubit>(), 
+      bloc: getIt.get<CategoryCubit>(),
       builder: (context, state) {
         if (state.isLoadingCategory) {
           return Shimmer.fromColors(
@@ -64,6 +65,16 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
         }
 
         if (state.errorLoadingCategory) {
+          return const Column(
+            children: [
+              Center(
+                child: Text("An error has occurred"),
+              ),
+            ],
+          );
+        }
+
+        if (state.errorLoadingCategory) {
           return Column(
             children: [
               ElevatedButton(
@@ -82,7 +93,7 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
         var categories = state.categories!;
         // print(categories);
         return ListView.builder(
-          scrollDirection: Axis.horizontal, 
+          scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             var category = categories[index];
             return Padding(
@@ -91,7 +102,7 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                 onTap: () {
                   ApplicationScreen.indexSearch = 1;
                   SearchScreen.indexTab = 0;
-                  
+
                   CategoryItemWidget.categoryName = category.name;
                   getIt
                       .get<EventCubit>()
@@ -104,9 +115,15 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                 },
                 child: Column(
                   children: [
+                    // CachedNetworkImage(
+                    //   imageUrl:
+                    //       'https://nvxubcejz.preview.infomaniak.website/storage/${category.imagePath}',
+                    //   height: 40,
+                    //   width: 40,
+                    //   color: AppColors.primary,
+                    // ),
                     SvgPicture.network(
                       'https://nvxubcejz.preview.infomaniak.website/storage/${category.imagePath}',
-                      
                       height: 40,
                       width: 40,
                       color: AppColors.primary,

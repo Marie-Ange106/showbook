@@ -7,7 +7,7 @@ import '../../../event/business_logic/cubit/event_cubit.dart';
 import '../../../service_locator.dart';
 import '../../../shared/routes/routes.gr.dart';
 import '../../../event/presentation/widgets/event_item_widget.dart';
-import '../../../category/presentation/widgets/category_item_widget.dart';
+// import '../../../category/presentation/widgets/category_item_widget.dart';
 
 @RoutePage()
 class EventListScreen extends StatefulWidget {
@@ -18,6 +18,12 @@ class EventListScreen extends StatefulWidget {
 }
 
 class _EventListScreenState extends State<EventListScreen> {
+  Future<void> _refresh() async {
+    setState(() {
+      getIt.get<EventCubit>().getEvent();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,66 +79,55 @@ class _EventListScreenState extends State<EventListScreen> {
               ),
             );
           }
-
           if (state.errorLoadingEvent) {
-            return Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    getIt.get<EventCubit>().getEvent();
-                  },
-                  child: const Center(
-                    child: Text('Try again'),
-                  ),
-                ),
-                Text(
-                  '${state.message}',
-                ),
-              ],
+            return const Center(
+              child: Text("An error has occurred"),
             );
           }
 
           if (state.events?.isEmpty ?? true) {
-            return Center(
-              child: CategoryItemWidget.categoryName == ''
-                  ? const Text(
-                      'No events found for this search',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      textAlign: TextAlign.center,
-                    )
-                  : Text(
-                      'No events found for ${CategoryItemWidget.categoryName} category',
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-            );
+            return const Center(
+                child: Text(
+              'No event(s) found ',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w400,
+              ),
+              textAlign: TextAlign.center,
+            )
+                // : Text(
+                //     'No events found for ${CategoryItemWidget.categoryName} category',
+                //     style: const TextStyle(
+                //       fontSize: 25,
+                //       fontWeight: FontWeight.w400,
+                //     ),
+                //     textAlign: TextAlign.center,
+                //   ),
+                );
           }
 
           var events = state.events!;
 
-          return Padding(
-            padding:
-                const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 15),
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                var event = events[index];
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, left: 15, right: 15, bottom: 15),
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  var event = events[index];
 
-                return GestureDetector(
-                  onTap: () {
-                    context.router.push(DetailEventRoute(event: event));
-                  },
-                  child: EventItemWidget(
-                    eventModel: event,
-                  ),
-                );
-              },
-              itemCount: events.length,
+                  return GestureDetector(
+                    onTap: () {
+                      context.router.push(DetailEventRoute(event: event));
+                    },
+                    child: EventItemWidget(
+                      eventModel: event,
+                    ),
+                  );
+                },
+                itemCount: events.length,
+              ),
             ),
           );
         },

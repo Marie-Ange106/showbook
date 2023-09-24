@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showbook/shared/routes/routes.gr.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
@@ -12,6 +13,15 @@ import '../../service_locator.dart';
 @RoutePage()
 class VerticalMenuScreen extends StatelessWidget {
   const VerticalMenuScreen({super.key});
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   Future<void> _showLoginDialog(BuildContext context) async {
     return showDialog<void>(
@@ -85,48 +95,54 @@ class VerticalMenuScreen extends StatelessWidget {
               ),
               // info à afficher lorsqu'on a un user connecté*************
               if (state.sucessTcheckUser)
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const CircleAvatar(
-                              backgroundColor: AppColors.grayScale,
-                              child: Icon(Icons.person),
-                            ),
-                            SizedBox(
-                              width: 200,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    user!.name,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  Text(
-                                    user.email,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                GestureDetector(
+                  onTap: () {
+                    context.router.push(const SettingsRoute());
+                    Navigator.pop(context);
+                  },
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 50,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const CircleAvatar(
+                                backgroundColor: AppColors.grayScale,
+                                child: Icon(Icons.person),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 200,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      user!.name,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    Text(
+                                      user.email,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const Divider()
-                  ],
+                      const Divider()
+                    ],
+                  ),
                 ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 15),
@@ -145,8 +161,10 @@ class VerticalMenuScreen extends StatelessWidget {
                           fontSize: 14,
                         ),
                       ),
-                      onTap: () {
-                        Navigator.pop(context);
+                      onTap: () async {
+                        await _launchInBrowser(
+                          Uri.parse('https://showbook.cm/'),
+                        );
                       },
                     ),
                     const SizedBox(
@@ -165,8 +183,11 @@ class VerticalMenuScreen extends StatelessWidget {
                           fontSize: 14,
                         ),
                       ),
-                      onTap: () {
-                        Navigator.pop(context);
+                      onTap: () async {
+                        // Navigator.pop(context);
+                        await _launchInBrowser(
+                          Uri.parse('https://showbook.cm/blog/'),
+                        );
                       },
                     ),
                     const SizedBox(
@@ -185,8 +206,10 @@ class VerticalMenuScreen extends StatelessWidget {
                           fontSize: 14,
                         ),
                       ),
-                      onTap: () {
-                        Navigator.pop(context);
+                      onTap: () async {
+                        await _launchInBrowser(
+                          Uri.parse('https://showbook.cm/blog/'),
+                        );
                       },
                     ),
                     const SizedBox(
