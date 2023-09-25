@@ -22,7 +22,7 @@ class _MyAccountScreenState extends State<MyAccountScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -74,12 +74,12 @@ class _MyAccountScreenState extends State<MyAccountScreen>
                 fontSize: 12,
               ),
             ),
-            Text(
-              'Notifications',
-              style: TextStyle(
-                fontSize: 12,
-              ),
-            ),
+            // Text(
+            //   'Notifications',
+            //   style: TextStyle(
+            //     fontSize: 12,
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -89,7 +89,7 @@ class _MyAccountScreenState extends State<MyAccountScreen>
         children: const [
           FollowedListScreen(),
           TicketListScreen(),
-          NotificationListScreen(),
+          // NotificationListScreen(),
         ],
       ),
     );

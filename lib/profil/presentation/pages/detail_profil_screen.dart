@@ -388,7 +388,7 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
                                 await _launchInBrowser(
                                   Uri.parse(widget.profil.instagram!),
                                 );
-                              },
+                              }, 
                               child: const Image(
                                 image:
                                     AssetImage('assets/images/instagram.jpeg'),

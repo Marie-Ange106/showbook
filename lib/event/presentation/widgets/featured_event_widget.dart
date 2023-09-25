@@ -71,6 +71,15 @@ class FeaturedEventWidget extends StatelessWidget {
             ),
           );
         }
+        if (state.errorLoadingEvent) {
+          return const Column(
+            children: [
+              Center(
+                child: Text("An error has occurred"),
+              ),
+            ],
+          );
+        }
         // var events = state.events;
         List<EventModel> featuredEvents = [];
         for (var event in state.events!) {

@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    getIt.get<LocationCubit>().getLocation();
+    // getIt.get<LocationCubit>().getLocation();
     getIt.get<AuthCubit>().getUser();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(const Duration(seconds: 20), () {
