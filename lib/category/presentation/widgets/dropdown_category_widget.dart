@@ -7,6 +7,7 @@ import '../../../service_locator.dart';
 
 class DropDownCategoryWidget extends StatefulWidget {
   static int selectedCategory = 1;
+  static String selectedCategoryFilter = '';
   const DropDownCategoryWidget({super.key});
 
   @override

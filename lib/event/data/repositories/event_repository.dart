@@ -17,6 +17,13 @@ class EventRepository {
     String? location,
     String? keyword,
     int? price,
+    int? today,
+    int? thisWeek,
+    int? thisWeekEnd,
+    int? thisMonth,
+    int? thisYear,
+    int? paid,
+    int? free,
   }) async {
     Map<String, dynamic> queryParameters = {};
     queryParameters['category'] = category;
@@ -24,6 +31,13 @@ class EventRepository {
     queryParameters['location'] = location;
     queryParameters['keyword'] = keyword;
     queryParameters['price'] = price;
+    queryParameters['today'] = today;
+    queryParameters['this_week'] = thisWeek;
+    queryParameters['this_week_end'] = thisWeekEnd;
+    queryParameters['this_year'] = thisYear;
+    queryParameters['this_month'] = thisMonth;
+    queryParameters['paid'] = paid;
+    queryParameters['free'] = free;
 
     Response response = await dio.get(
       '/api/showbook/event',

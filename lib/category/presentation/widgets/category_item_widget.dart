@@ -74,21 +74,6 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
           );
         }
 
-        if (state.errorLoadingCategory) {
-          return Column(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  getIt.get<CategoryCubit>().getCategory();
-                },
-                child: const Center(
-                  child: Text('Try again'),
-                ),
-              ),
-              Text('${state.message}')
-            ],
-          );
-        }
         // print(state.categories);
         var categories = state.categories!;
         // print(categories);
