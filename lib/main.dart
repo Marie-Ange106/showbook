@@ -10,7 +10,7 @@ import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
 import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/service_locator.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
-import 'shared/connectivity/cubit/internet_cubit.dart';
+// import 'shared/connectivity/cubit/internet_cubit.dart';
 import 'shared/routes/routes.dart';
 
 void main() {
@@ -52,9 +52,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<FavoriteCubit>(
           create: (context) => getIt.get<FavoriteCubit>(),
         ),
-        BlocProvider<InternetCubit>(
-          create: (context) => getIt.get<InternetCubit>(),
-        ),
+        // BlocProvider<InternetCubit>(
+        //   create: (context) => getIt.get<InternetCubit>(),
+        // ),
       ],
       child: MaterialApp.router(
         routerConfig: _appRouter.config(),
@@ -64,51 +64,51 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.white),
           useMaterial3: true,
         ),
-        builder: (context, child) {
-          return BlocBuilder<InternetCubit, InternetState>(
-            builder: (context, state) {
-              if (state.disconnected) {
-                return Stack(
-                  children: [
-                    FadeInUp(child: child!),
-                    FadeInUp(
-                        child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Material(
-                          color: Colors.transparent,
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(.8),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            height: 50,
-                            child: const Row(
-                              children: [
-                                Text(
-                                  "No Internet",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )),
-                  ],
-                );
-              }
-              return FadeInUp(child: child!);
-            },
-          );
-        },
+        // builder: (context, child) {
+        //   return BlocBuilder<InternetCubit, InternetState>(
+        //     builder: (context, state) {
+        //       if (state.disconnected) {
+        //         return Stack(
+        //           children: [
+        //             FadeInUp(child: child!),
+        //             FadeInUp(
+        //                 child: Align(
+        //               alignment: Alignment.bottomCenter,
+        //               child: Padding(
+        //                 padding: const EdgeInsets.all(8.0),
+        //                 child: Material(
+        //                   color: Colors.transparent,
+        //                   child: Container(
+        //                     padding: const EdgeInsets.all(8),
+        //                     width: MediaQuery.of(context).size.width,
+        //                     decoration: BoxDecoration(
+        //                       color: Colors.black.withOpacity(.8),
+        //                       borderRadius: BorderRadius.circular(8),
+        //                     ),
+        //                     height: 50,
+        //                     child: const Row(
+        //                       children: [
+        //                         Text(
+        //                           "No Internet",
+        //                           style: TextStyle(
+        //                             color: Colors.white,
+        //                             fontSize: 18,
+        //                             fontWeight: FontWeight.bold,
+        //                           ),
+        //                         ),
+        //                       ],
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //             )),
+        //           ],
+        //         );
+        //       }
+        //       return FadeInUp(child: child!);
+        //     },
+        //   );
+        // },
       ),
     );
   }
