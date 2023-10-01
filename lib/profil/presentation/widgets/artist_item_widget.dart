@@ -8,7 +8,7 @@ import 'package:showbook/service_locator.dart';
 import 'package:showbook/shared/routes/routes.gr.dart';
 
 import '../../../shared/utils/app_colors.dart';
-import '../../../shared/widgets/button_widget.dart';
+import 'follow_widget.dart';
 
 class ArtistItemWidget extends StatelessWidget {
   const ArtistItemWidget({
@@ -178,15 +178,22 @@ class ArtistItemWidget extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              ButtonWidget(
-                                borderColor: AppColors.primary,
-                                bgColor: AppColors.primary,
-                                height: 30,
-                                width: 100,
-                                text: 'Follow',
-                                textColor: AppColors.white,
-                                fontSize: 12,
-                                onPressed: () {},
+                              // ButtonWidget(
+                              //   borderColor: AppColors.primary,
+                              //   bgColor: AppColors.primary,
+                              //   height: 30,
+                              //   width: 100,
+                              //   text: 'Follow',
+                              //   textColor: AppColors.white,
+                              //   fontSize: 12,
+                              //   onPressed: () {},
+                              // ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: FollowWidget(
+                                  profilModel: profil,
+                                ),
                               ),
                             ],
                           ),

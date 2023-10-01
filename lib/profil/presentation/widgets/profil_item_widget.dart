@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../auth/business_logic/cubit/auth_cubit.dart';
-import '../../../service_locator.dart';
 import '../../../shared/utils/app_colors.dart';
 import 'follow_widget.dart';
 import '../../data/models/profil_model.dart';
@@ -19,7 +18,6 @@ class ProfilWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        var user = getIt.get<AuthCubit>().state.user;
         return SizedBox(
           child: Row(
             children: [
@@ -83,7 +81,7 @@ class ProfilWidget extends StatelessWidget {
                     Row(
                       children: [
                         if (state.sucessTcheckUser)
-                          FollowWidget(profilModel: profilModel, user: user),
+                          FollowWidget(profilModel: profilModel),
                       ],
                     )
                   ],

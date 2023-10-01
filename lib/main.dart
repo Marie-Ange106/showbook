@@ -11,6 +11,7 @@ import 'package:showbook/profil/business_logic/cubit/profil_cubit.dart';
 import 'package:showbook/service_locator.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
 // import 'shared/connectivity/cubit/internet_cubit.dart';
+import 'follow/business_logic/follow_cubit.dart';
 import 'shared/routes/routes.dart';
 
 void main() {
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<FavoriteCubit>(
           create: (context) => getIt.get<FavoriteCubit>(),
+        ),
+        BlocProvider<FollowCubit>(
+          create: (context) => getIt.get<FollowCubit>(),
         ),
         // BlocProvider<InternetCubit>(
         //   create: (context) => getIt.get<InternetCubit>(),

@@ -9,6 +9,7 @@ import 'package:showbook/account/business_logic/cubit/user_cubit.dart';
 import 'package:showbook/account/data/user_repository.dart';
 import 'package:showbook/comment/data/comment_repository.dart';
 import 'package:showbook/favorite_event/business_logic/cubit/favorite_cubit.dart';
+import 'package:showbook/follow/data/repositories/follow_repository.dart';
 import 'package:showbook/location/business_logic/cubit/location_cubit.dart';
 import 'package:showbook/location/data/location_repository.dart';
 
@@ -19,6 +20,7 @@ import 'category/data/repositories/category_repository.dart';
 import 'comment/business_logic/cubit/comment_cubit.dart';
 import 'event/business_logic/cubit/event_cubit.dart';
 import 'event/data/repositories/event_repository.dart';
+import 'follow/business_logic/follow_cubit.dart';
 import 'profil/business_logic/cubit/profil_cubit.dart';
 import 'profil/data/repositories/profil_repository.dart';
 // import 'shared/connectivity/cubit/internet_cubit.dart';
@@ -32,7 +34,7 @@ Future setupLocator() async {
   // var cacheDir = await getTemporaryDirectory();
   getIt.registerSingleton<Dio>(Dio(BaseOptions(
     // baseUrl: 'https://nvxubcejz.preview.infomaniak.website',
-    baseUrl: 'http://192.168.134.229:8000',
+    baseUrl: 'http://192.168.43.132:8000',
   ))
       // ..interceptors.add(DioCacheInterceptor(
       //   options: CacheOptions(
@@ -147,4 +149,17 @@ Future setupLocator() async {
   //     connectivity: getIt.get<Connectivity>(),
   //   ),
   // );
+
+  // * Follow services
+  getIt.registerSingleton<FollowRepository>(
+    FollowRepository(
+      dio: getIt.get<Dio>(),
+    ),
+  );
+
+  getIt.registerSingleton<FollowCubit>(
+    FollowCubit(
+      followRepository: getIt.get<FollowRepository>(),
+    ),
+  );
 }

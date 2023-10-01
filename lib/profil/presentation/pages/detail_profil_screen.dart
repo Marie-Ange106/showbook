@@ -231,7 +231,6 @@ class _DetailProfilScreenState extends State<DetailProfilScreen>
                     ),
                     FollowWidget(
                       profilModel: widget.profil,
-                      user: getIt.get<AuthCubit>().state.user,
                     ),
                   ],
                 ),
