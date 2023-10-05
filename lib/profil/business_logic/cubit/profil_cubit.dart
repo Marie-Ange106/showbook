@@ -71,6 +71,7 @@ class ProfilCubit extends Cubit<ProfilState> {
       );
 
       var data = await profilRepository.follow(profilId: profilId);
+  
       emit(
         state.copyWith(
           follow: data,
@@ -79,6 +80,7 @@ class ProfilCubit extends Cubit<ProfilState> {
           errorLoadingFollow: false,
         ),
       );
+    
     } catch (e) {
       emit(
         state.copyWith(

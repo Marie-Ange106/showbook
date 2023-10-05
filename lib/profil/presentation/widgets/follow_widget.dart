@@ -9,7 +9,7 @@ import '../../../service_locator.dart';
 import '../../../shared/utils/app_colors.dart';
 import '../../../shared/widgets/button_widget.dart';
 
-class FollowWidget extends StatelessWidget {
+class FollowWidget extends StatefulWidget {
   const FollowWidget({
     super.key,
     required this.profilModel,
@@ -18,12 +18,17 @@ class FollowWidget extends StatelessWidget {
   final ProfilModel profilModel;
 
   @override
+  State<FollowWidget> createState() => _FollowWidgetState();
+}
+
+class _FollowWidgetState extends State<FollowWidget> {
+  @override
   Widget build(BuildContext context) {
     var user = getIt.get<AuthCubit>().state.user;
     var followed = getIt
         .get<FollowCubit>()
         .state
-        .isPresentInFollowings(profilId: profilModel.id);
+        .isPresentInFollowings(profilId: widget.profilModel.id);
     return BlocBuilder<ProfilCubit, ProfilState>(
       builder: (context, state) {
         return GestureDetector(
@@ -41,8 +46,10 @@ class FollowWidget extends StatelessWidget {
               //   getIt.get<ProfilCubit>().follow(profilId: profilModel.id);
               //   getIt.get<UserCubit>().addProfilFollowed(profilModel);
               // }
-              getIt.get<ProfilCubit>().follow(profilId: profilModel.id);
+
+              getIt.get<ProfilCubit>().follow(profilId: widget.profilModel.id);
               getIt.get<FollowCubit>().fetchAuthUserFollowings();
+              getIt.get<ProfilCubit>().getProfil();
             }
           },
           // child: user != null
