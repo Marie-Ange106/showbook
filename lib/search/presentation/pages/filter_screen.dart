@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showbook/search/presentation/pages/search_screen.dart';
@@ -10,7 +11,6 @@ import '../../../service_locator.dart';
 import '../../../shared/routes/routes.gr.dart';
 import '../../../shared/utils/app_colors.dart';
 import '../../../shared/widgets/button_widget.dart';
-import '../widgets/item_filter_widget.dart';
 
 class FilterScreen extends StatefulWidget {
   // final CategoryCubit categoryCubit;
@@ -23,17 +23,37 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-  RangeValues _currentRangeValues = const RangeValues(20, 80);
-  String selectedCategory = 'All categories';
-  DateTime? selectedDate;
-  bool isExpanded = false;
-  double height = 500;
-  double heightContainerCategories = 100;
+  String selectedCategoryFilter = "";
+  int count = 0;
+  int today = 0;
+  int thisWeek = 0;
+  int thisWeekEnd = 0;
+  int thisMonth = 0;
+  int thisYear = 0;
+  int free = 0;
+  int paid = 0;
+  bool selectedDate = false;
+
+  int tagDate = 0;
+  int tagPrice = 0;
+  List<String> optionDate = [
+    'All Date',
+    'Today',
+    'This Week',
+    'This Week-end',
+    'This Month',
+    'This Year',
+  ];
+  List<String> optionPrice = [
+    'All price',
+    'Paid',
+    'Free',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: isExpanded ? 700 : 550,
+      height: 550,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -65,42 +85,22 @@ class _FilterScreenState extends State<FilterScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // categories*********************
-                // const Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Icon(
-                //       Icons.category,
-                //     ),
-                //   ],
-                // ),
-                SizedBox(
-                  height: isExpanded ? 250 : 100,
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 15),
-                            child: Text(
-                              'Category',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ],
+                // categories***********************
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Category',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      SingleChildScrollView(
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    SizedBox(
+                      child: SingleChildScrollView(
                         child: BlocBuilder<CategoryCubit, CategoryState>(
                           bloc: (getIt
                                       .get<CategoryCubit>()
@@ -116,176 +116,187 @@ class _FilterScreenState extends State<FilterScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ExpansionTile(
-                                  title: Text(selectedCategory),
-                                  initiallyExpanded: isExpanded,
-                                  onExpansionChanged: (value) {
-                                    setState(() {
-                                      isExpanded = value;
-                                    });
+                                DropdownButtonFormField(
+                                  value: 'Concert',
+                                  items: categories!.map((e) {
+                                    return DropdownMenuItem(
+                                      value: e.name,
+                                      child: Text(e.name),
+                                    );
+                                  }).toList(),
+                                  onChanged: (val) {
+                                    setState(
+                                      () {
+                                        selectedCategoryFilter = val!;
+                                        count++;
+                                      },
+                                    );
                                   },
-                                  children: [
-                                    SizedBox(
-                                      height: isExpanded ? 150 : 125,
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: state.categories!.length,
-                                        itemBuilder: (context, index) {
-                                          var category = categories![index];
-                                          return ListTile(
-                                            title: Text(category.name),
-                                            onTap: () {
-                                              setState(() {
-                                                selectedCategory =
-                                                    category.name;
-                                                // isExpanded = false;
-                                              });
-                                              // widget.onFilterSelected(
-                                              //     selectedCategory, selectedDate);
-                                            },
-                                          );
-                                        },
+                                  dropdownColor:
+                                      const Color.fromARGB(255, 246, 226, 226),
+                                  menuMaxHeight: 200,
+                                  borderRadius: BorderRadius.circular(20),
+                                  decoration: InputDecoration(
+                                    // contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                                    iconColor: AppColors.primary,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.black12),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.black,
                                       ),
                                     ),
-                                  ],
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Color.fromARGB(255, 254, 2, 2),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             );
                           },
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 // Date **********************
-                Row(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // const Icon(
-                    //   Icons.calendar_today,
-                    // ),
-                    const SizedBox(
-                      width: 20,
+                    const Text(
+                      'Date',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                      ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Date',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            final DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2021),
-                              lastDate: DateTime(2024),
-                            );
-                            if (pickedDate != null) {
-                              setState(() {
-                                selectedDate = pickedDate;
-                              });
-                              // widget.onFilterSelected(
-                              //     selectedCategory, selectedDate);
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Text(
-                              selectedDate == null
-                                  ? 'Any date'
-                                  : selectedDate.toString(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
+                    ChipsChoice<int>.single(
+                      value: tagDate,
+                      onChanged: (val) => setState(() {
+                        tagDate = val;
+                        count++;
+                        if (tagDate == 1) {
+                          today = 1;
+                        }
+                        if (tagDate == 2) {
+                          thisWeek = 1;
+                        }
+                        if (tagDate == 3) {
+                          thisWeekEnd = 1;
+                        }
+                        if (tagDate == 4) {
+                          thisMonth = 1;
+                        }
+                        if (tagDate == 5) {
+                          thisYear = 1;
+                        }
+                      }),
+                      choiceItems: C2Choice.listFrom<int, String>(
+                        source: optionDate,
+                        value: (i, v) => i,
+                        label: (i, v) => v,
+                      ),
+                      wrapped: true,
+                      choiceCheckmark: true,
+                      // choiceStyle: const C2ChipStyle(
+                      //     checkmarkColor: AppColors.primary,
+                      //     foregroundStyle: TextStyle(
+                      //       color: AppColors.primary,
+                      //     )),
+                    ),
                   ],
                 ),
 
-                // const SizedBox(
-                //   height: 30,
-                // ),
-                // ItemFilterWidget(
-                //   icon: Icons.location_on,
-                //   title: 'Location',
-                //   value: 'Any location',
-                // ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 // price *********************
-                
-                ItemFilterWidget(
-                  // icon: Icons.price_change,
-                  title: 'Price',
-                  value: '',
+                const Text(
+                  'Price',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
                 ),
                 Column(
                   children: [
-                    RangeSlider(
-                      values: _currentRangeValues,
-                      min: 0,
-                      max: 100,
-                      labels: const RangeLabels('start', 'end'),
-                      activeColor: AppColors.primary,
-                      inactiveColor: const Color.fromARGB(255, 197, 197, 197),
-                      onChanged: (RangeValues values) {
-                        setState(() {
-                          _currentRangeValues = values;
-                        });
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25, right: 25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Min price: ${_currentRangeValues.start.round()}',
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          Text(
-                            'Max price: ${_currentRangeValues.end.round()}',
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
+                    ChipsChoice<int>.single(
+                      value: tagPrice,
+                      onChanged: (val) => setState(() {
+                        tagPrice = val;
+                        count++;
+                        if (tagPrice == 1) {
+                          today = 1;
+                        }
+                        if (tagPrice == 2) {
+                          thisWeek = 1;
+                        }
+                      }),
+                      choiceItems: C2Choice.listFrom<int, String>(
+                        source: optionPrice,
+                        value: (i, v) => i,
+                        label: (i, v) => v,
                       ),
+                      wrapped: true,
+                      choiceCheckmark: true,
+                      // choiceStyle: const C2ChipStyle(
+                      //     checkmarkColor: AppColors.primary,
+                      //     foregroundStyle: TextStyle(
+                      //       color: AppColors.primary,
+                      //     )),
                     ),
                   ],
-                ),
+                )
               ],
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
+
+            // button filter*******************
             Center(
               child: InkWell(
                 onTap: () {
                   ApplicationScreen.indexSearch = 1;
                   SearchScreen.indexTab = 0;
                   getIt.get<EventCubit>().getEvent(
-                        category: selectedCategory,
-                        // date: selectedDate.toString(),
-                        // price: _currentRangeValues.start.round(),
+                        category: selectedCategoryFilter,
+                        today: today,
+                        thisWeek: thisWeek,
+                        thisMonth: thisMonth,
+                        thisWeekEnd: thisWeekEnd,
+                        thisYear: thisYear,
+                        paid: paid,
+                        free: 1,
                       );
                   context.router.pushAndPopUntil(
                     const ApplicationRoute(),
                     predicate: (_) => false,
                   );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppColors.grayScale,
+                      content: Center(
+                        child: Text(
+                          '${count} filter apply',
+                        ),
+                      ),
+                    ),
+                  );
+                  // print(thisYear);
                 },
                 child: const ButtonWidget(
                   text: 'Apply',

@@ -21,6 +21,13 @@ class EventCubit extends Cubit<EventState> {
     String? location,
     String? keyword,
     int? price,
+    int? today,
+    int? thisWeek,
+    int? thisWeekEnd,
+    int? thisMonth,
+    int? thisYear,
+    int? paid,
+    int? free,
   }) async {
     try {
       emit(state.copyWith(
@@ -34,6 +41,13 @@ class EventCubit extends Cubit<EventState> {
         location: location,
         keyword: keyword,
         price: price,
+        today: today,
+        thisWeek: thisWeek,
+        thisWeekEnd: thisWeekEnd,
+        thisMonth: thisMonth,
+        thisYear: thisYear,
+        paid: paid,
+        free: free,
       );
       // print(events);
       emit(

@@ -8,7 +8,9 @@ import 'package:showbook/shared/utils/app_colors.dart';
 import 'package:showbook/profil/presentation/widgets/artist_item_widget.dart';
 import 'package:showbook/event/presentation/widgets/featured_event_widget.dart';
 
+import '../../application_screen.dart';
 import '../../category/presentation/widgets/category_item_widget.dart';
+import '../../event/business_logic/cubit/event_cubit.dart';
 
 @RoutePage()
 class ForYouScreen extends StatefulWidget {
@@ -19,6 +21,13 @@ class ForYouScreen extends StatefulWidget {
 }
 
 class _ForYouScreenState extends State<ForYouScreen> {
+  @override
+  void initState() {
+    getIt.get<EventCubit>().getEvent();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -101,6 +110,7 @@ class _ForYouScreenState extends State<ForYouScreen> {
                   GestureDetector(
                     onTap: () {
                       SearchScreen.indexTab = 1;
+                      ApplicationScreen.indexSearch = 1;
                       getIt.get<ProfilCubit>().getProfil(type: 'artist');
                       context.router.pushAndPopUntil(
                         const ApplicationRoute(),

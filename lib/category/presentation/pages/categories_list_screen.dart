@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showbook/event/business_logic/cubit/event_cubit.dart';
 import 'package:showbook/shared/utils/app_colors.dart';
 
+import '../../../application_screen.dart';
 import '../../../search/presentation/pages/search_screen.dart';
 import '../../../service_locator.dart';
 import '../../../shared/routes/routes.gr.dart';
@@ -45,6 +46,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
+                        ApplicationScreen.indexSearch = 1;
                         SearchScreen.indexTab = 0;
                         getIt
                             .get<EventCubit>()
